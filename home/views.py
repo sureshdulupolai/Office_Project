@@ -158,15 +158,34 @@ def mailPageFunction(request):
 def mailSendPageFunction(request):
     if request.method == 'GET':
         if request.GET.get('query'):
-            data = User.objects.filter(username__icontains = request.GET.get('query'))
-            if data:
-                pass
-            else:
-                data = User.objects.filter(username__icontains = request.GET.get('query')[:1])
+            data = User.objects.filter(username__icontains=request.GET.get('query'))
+            if not data:
+                data = User.objects.filter(username__icontains=request.GET.get('query')[:1])
         else:
             data = None
-    # print(data)
+
+    elif request.method == 'POST':
+        selected_user_id = request.POST.get('selected_user')
+        subject = request.POST.get('subject')
+        text = request.POST.get('text')
+        files = request.FILES.get('files')
+        username = str(request.user.username)
+
+        # Get the User object
+        print(selected_user_id)
+        # selected_user = User.objects.get(id=selected_user_id)
+        # print(selected_user)
+
+        # obj = Mail(
+        #     names=selected_user,
+        #     user_name=username,
+        #     subject=subject,
+        #     text=text,
+        #     files=files
+        # )
+        # obj.save()
+
     context = {
-        'users' : data,
+        'users': data,
     }
     return render(request, 'mailsend.html', context)
