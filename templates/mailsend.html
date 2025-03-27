@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    /* Hide scrollbar but allow scrolling */
+    ::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+    }
+    .hide-scroll {
+        -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+        scrollbar-width: none;     /* Hide scrollbar for Firefox */
+    }
+</style>
+
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center hide-scroll" style="height: 100vh; overflow-y: auto; padding-top: 60px;">
+    <div class="card p-4 rounded-3 bg-light" style="width: 500px; max-height: 90vh; overflow-y: auto;" class="hide-scroll">
+        <h3 class="text-center mb-4">Send Mail</h3>
+
+        <!-- First Section - Search and Show User -->
+        <div class="mb-4 border border-secondary rounded p-3 bg-light">
+            <h5 class="mb-3">Search User</h5>
+            
+            <!-- Search Form -->
+            <form method="GET" action="#" class="d-flex mb-3">
+                <input type="text" name="query" class="form-control me-2" placeholder="Search User" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            <!-- Dropdown if User Data is Found -->
+            {% if users %}
+                <select class="form-select mb-3">
+                    <option selected>Select User</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <p class="text-muted">No user found.</p>
+            {% endif %}
+        </div>
+
+        <!-- Second Section - Mail Form -->
+        <div class="border border-secondary rounded p-3 bg-light">
+            <h5 class="mb-3">Send Mail</h5>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject" required>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Message</label>
+                    <textarea name="text" id="text" class="form-control" rows="4" placeholder="Enter Message" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="files" class="form-label">Attachment (Optional)</label>
+                    <input type="file" name="files" id="files" class="form-control" accept=".pdf,.docx,.jpg,.png">
+                </div>
+                <button type="submit" class="btn btn-success w-100 mb-2">Send Mail</button>
+            </form>
+
+            <!-- Back Button -->
+            <a href="{% url 'home' %}" class="btn btn-secondary w-100">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

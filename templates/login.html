@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 rounded-3 bg-light log-mt" style="width: 400px;">
+        <h3 class="text-center mb-4">Login Page</h3>
+        
+        <form method="POST" class="mb-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary w-100">Back</a>
+
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a href="{% url 'signup' %}" class="text-primary">Sign up here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

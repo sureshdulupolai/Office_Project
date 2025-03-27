@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh; overflow: auto">
+    <div class="card p-4 rounded-3 bg-light log-mt mb-3" style="width: 400px; margin-top: 160px;">
+        <h3 class="text-center mb-4">Sign Up Page</h3>
+
+        <form method="POST" class="mb-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter First Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter Last Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="contact_no" class="form-label">Contact No</label>
+                <input type="text" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Mobile No" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" name="password1" id="password1" class="form-control" placeholder="Enter Password" required>
+            </div>
+            <div class="mb-4">
+                <label for="password2" class="form-label">Confirm Password</label>
+                <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm Password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary w-100 mb-2">Back</a>
+
+        <div class="text-center mt-3">
+            <p>Already have an account? <a href="{% url 'login' %}" class="text-primary">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

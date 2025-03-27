@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card p-4 rounded-3 bg-light" style="width: 500px; margin-top: 55px;">
+        <h3 class="text-center mb-4">Update Profile</h3>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- User Image Field -->
+            <div class="mb-2 text-center">
+                <label for="user_image" class="form-label">Profile Image</label>
+                <input type="file" name="user_image" id="user_image" class="form-control">
+            </div>
+
+            <!-- First Name & Last Name Fields -->
+            <div class="mb-2">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter First Name">
+            </div>
+            <div class="mb-2">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter Last Name">
+            </div>
+
+            <!-- Contact No Field -->
+            <div class="mb-2">
+                <label for="contact_no" class="form-label">Contact Number</label>
+                <input type="text" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Contact Number">
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-2">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email">
+            </div>
+
+            <!-- Description Field -->
+            <div class="mb-4">
+                <label for="desc" class="form-label">Description</label>
+                <textarea name="desc" id="desc" class="form-control" rows="4" placeholder="Write about yourself..." 
+                    style="height: 120px; resize: none;"></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <button type="submit" class="btn btn-success w-100 mb-2">Save Changes</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary w-100">Back to Home</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mt-5 border border-light rounded p-4 bg-dark text-white" style="position: relative; top: 10vh;">
+    <h2 class="text-center mb-4">{{ u_name }} Mails <span class="text-secondary">({{ ct_mail }})</span></h2>
+
+    <!-- Mail List Table -->
+    <table class="table table-bordered table-striped table-dark">
+        <thead class="thead-light">
+            <tr>
+                <th>Sender</th>
+                <th>Subject</th>
+                <th>Attachment</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if mail %}
+                {% for i in mail %}
+                    <tr>
+                        <td>{{ i.user_name }}</td>
+                        <td>{{ i.subject }}</td>
+                        <td>
+                            {% if i.files %}
+                                <a href="/media/{{ i.files }}" target="_blank" class="text-warning text-decoration-none ">Download PDF</a>
+                            {% else %}
+                                No attachment
+                            {% endif %}
+                        </td>
+                        <td>{{ i.text_time }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center text-warning">No mails available yet.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

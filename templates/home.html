@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    body{
+        width: 100%;
+        /* height: 100vh; */
+        overflow: auto;
+        background-color: rgb(33, 37, 41);
+    }
+    .company-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .stats-box {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    h3{
+        box-sizing: border-box;
+        padding-top: 20px;
+        color: white;
+    }
+    p{
+        color: white;
+    }
+</style>
+
+ <!-- Header Section with Company Image -->
+ <div class="container text-center my-4">
+    <h1 class="fw-bold">Welcome to Our Office Management System</h1>
+    <img src="../media/office.jpg" alt="Company Image" class="company-img mt-3">
+</div>
+
+<!-- Statistics Section -->
+<div class="container mt-4">
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h3>Total Employees</h3>
+                <p>{{ pf_count }}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h3>Managers</h3>
+                <p>{{ manager }}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h3>Company Owner</h3>
+                <p>{{ owner }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    body {
+        background-color: rgb(33, 37, 41); /* Dark background */
+        color: white; /* White text */
+    }
+    .table-container {
+        margin: 30px auto;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Slightly transparent background */
+        border-radius: 10px;
+        border: 2px solid white;
+        width: 80%;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        text-align: center;
+        padding: 5px;
+        border: 1px solid white;
+    }
+    th {
+        background-color: rgba(255, 255, 255, 0.204);
+    }
+    td {
+        background-color: rgba(255, 255, 255, 0.04);
+    }
+    a{
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+
+<div class="container table-container" style="margin-top: 80px;">
+    <h2 class="text-center mb-4">User Information Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <!-- <th>User ID</th> -->
+                <th>User Category</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if zipped_data %}
+                {% for i, user in zipped_data %}
+                    <tr>
+                        <td><a href="{% url 'profile' user.id user.username 1 %}"><span>{{ user.first_name }} {{ user.last_name }}</span></a></td>
+                        <td><a href="{% url 'profile' user.id user.username 1 %}">{{ i.user_category }}</a></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

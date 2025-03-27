@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="logout-container bg-light p-4 rounded shadow log-mt">
+        <h3 class="mb-4 text-center">Are you sure you want to log out?</h3>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger w-100 mb-2">Yes, Logout</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary w-100">No, Go Back</a>
+    </div>
+</div>
+{% endblock %}
