@@ -13,6 +13,35 @@
         border: 2px solid white;
         width: 80%;
     }
+    /* Updated search bar styling */
+    .search-bar {
+        position: absolute;
+        top: 80px;
+        right: 100px;
+        display: flex;
+    }
+    
+    .search-bar input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        outline: none;
+        font-size: 16px;
+        height: 4vh;
+        width: 15vw;
+    }
+    .search-bar button {
+        width: 80px;  /* Increased button width to accommodate text */
+        border: none;
+        background-color: #28a745; /* Different background color (green) */
+        color: white;
+        /* border-radius: 0 4px 4px 0; */
+        cursor: pointer;
+        outline: none;
+        font-size: 16px;
+        height: 4vh;
+    }
     table {
         width: 100%;
         border-collapse: collapse;
@@ -28,35 +57,53 @@
     td {
         background-color: rgba(255, 255, 255, 0.04);
     }
-    a{
+    a {
         color: white;
         text-decoration: none;
     }
 </style>
 
+<!-- Properly styled search bar at top right -->
+<div class="search-bar">
+    <form method="GET">
+        <input type="text" name="search_user" placeholder="Search Username..." required>
+        <button type="submit">Search</button>
+    </form>
+</div>
 
-<div class="container table-container" style="margin-top: 80px;">
-    <h2 class="text-center mb-4">User Information Table</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>User Name</th>
-                <!-- <th>User ID</th> -->
-                <th>User Category</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            {% if zipped_data %}
-                {% for i, user in zipped_data %}
+<div style="position: relative; top: 110px;">
+    <div class="container table-container">
+        <h2 class="text-center mb-4">User Information Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>User Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if zipped_data %}
+                    {% for i, user in zipped_data %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'profile' user.id user.username 1 %}">
+                                    {{ user.first_name }} {{ user.last_name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'profile' user.id user.username 1 %}">
+                                    {{ i.user_category }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
                     <tr>
-                        <td><a href="{% url 'profile' user.id user.username 1 %}"><span>{{ user.first_name }} {{ user.last_name }}</span></a></td>
-                        <td><a href="{% url 'profile' user.id user.username 1 %}">{{ i.user_category }}</a></td>
+                        <td colspan="2">No users found.</td>
                     </tr>
-                {% endfor %}
-            {% endif %}
-
-        </tbody>
-    </table>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

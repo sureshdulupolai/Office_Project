@@ -80,7 +80,7 @@ def homePageFunction(request):
 
 def tablePageFunction(request):
     profile = list(Profile.objects.all().values())
-    
+
     for a1 in range(len(profile)):
         for a2 in range(len(profile)):
             if profile[a1]['user_category'][:1] > profile[a2]['user_category'][:1]:
@@ -94,6 +94,15 @@ def tablePageFunction(request):
         lst_data += [User.objects.get(id=lst[j])]
 
     zipped_data = zip(profile, lst_data)
+
+    checkUserDataForTable = request.GET.get('search_user')
+    if 'all' not in checkUserDataForTable:
+        filtered_zipped_data = []
+        for zipData1, zipData2 in zipped_data:
+            if checkUserDataForTable in zipData1.values():
+                # print(zipData1, zipData2)
+                filtered_zipped_data.append((zipData1, zipData2))
+        zipped_data = filtered_zipped_data
 
     context = {
         'zipped_data' : zipped_data
