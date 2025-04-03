@@ -1,1 +1,48 @@
-{{ obj }}
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    /* Hide scrollbar but allow scrolling */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    textarea{
+        resize: none;
+    }
+</style>
+
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center hide-scroll" style="height: 100vh; overflow-y: auto; padding-top: 60px;">
+    <div class="card p-4 rounded-3 bg-light" style="width: 500px; max-height: 90vh; overflow-y: auto;">
+        <h3 class="text-center mb-4">Send Mail</h3>
+
+        <!-- Mail Form -->
+        <div class="border border-secondary rounded p-3 bg-light">
+            <h5 class="mb-3">Send Mail</h5>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+                    <label class="form-label fw-bold">Username : <span id="selected_user">{{ obj }}</span></label>
+                    <a href="{% url 'send' %}" class="btn btn-warning btn-sm">Change Mail</a>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter Subject" required>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Message</label>
+                    <textarea name="text" id="text" class="form-control" rows="4" placeholder="Enter Message" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="files" class="form-label">Attachment (Optional)</label>
+                    <input type="file" name="files" id="files" class="form-control" accept=".pdf,.docx,.jpg,.png">
+                </div>
+                <button type="submit" class="btn btn-success w-100 mb-2">Send Mail</button>
+            </form>
+            <a href="{% url 'home' %}" class="btn btn-secondary w-100">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

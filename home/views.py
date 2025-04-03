@@ -203,6 +203,28 @@ def mailSendPageFunction(request):
     return render(request, 'mailsend.html', context)
 
 def profileEmailPageFunction(request, obj):
+    if request.method == 'POST':
+        selected_user_id = obj
+        subject = request.POST.get('subject')
+        text = request.POST.get('text')
+        files = request.FILES.get('files')
+        username = str(request.user.username)
+
+        # Get the User object
+        # print(selected_user_id)
+        selected_user = User.objects.get(username=selected_user_id)
+        # print(selected_user)
+
+        obj = Mail(
+            names=selected_user,
+            user_name=username,
+            subject=subject,
+            text=text,
+            files=files
+        )
+        obj.save()
+        return redirect('home')
+    
     context = {
         'obj' : obj,
     }
