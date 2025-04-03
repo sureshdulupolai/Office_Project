@@ -11,4 +11,5 @@ urlpatterns = [
     path('edit-profile/', views.editProfilePageFunction, name='edit'),
     path('mail/', views.mailPageFunction, name='mail'),
     path('mail-send/', views.mailSendPageFunction, name='send'),
+    path('mail-send/direct-profile/<str:obj>/', views.profileEmailPageFunction, name='profileEmail'),
 ]

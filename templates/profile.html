@@ -31,9 +31,8 @@
                     <!-- Right Side: Edit Button & Description -->
                     <div class="col-md-8">
                         <div class="text-end">
-                            {% if check == 1 %}
-                                <!-- <div class="btn btn-bord mb-1 mt-2"></div> -->
-                                <a class="btn btn-outline-light mb-1 mt-2 ms-2" href="#">Mail</a>
+                            {% if check == 1 and obj.name.username != user.username %}
+                                <a class="btn btn-outline-light mb-1 mt-2 ms-2" href="{% url 'profileEmail' obj %}">Mail</a>
                                 <a class="btn btn-outline-light mb-1 mt-2 ms-2" href="{% url 'table' %}">Back</a>
                             {% else %}
                                 <a href="{% url 'edit' %}" class="btn btn-outline-light mb-1 mt-2">Edit Profile</a>

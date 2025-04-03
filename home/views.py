@@ -201,3 +201,9 @@ def mailSendPageFunction(request):
         'users': data,
     }
     return render(request, 'mailsend.html', context)
+
+def profileEmailPageFunction(request, obj):
+    context = {
+        'obj' : obj,
+    }
+    return render(request, 'profileEmail.html', context)
