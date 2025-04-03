@@ -96,12 +96,14 @@ def tablePageFunction(request):
     zipped_data = zip(profile, lst_data)
 
     checkUserDataForTable = request.GET.get('search_user')
-    if 'all' not in checkUserDataForTable:
+    print(checkUserDataForTable)
+    print()
+    if checkUserDataForTable:
         filtered_zipped_data = []
         for zipData1, zipData2 in zipped_data:
-            if checkUserDataForTable in zipData1.values():
-                # print(zipData1, zipData2)
-                filtered_zipped_data.append((zipData1, zipData2))
+            CheckUser = User.objects.get(id = zipData1['name_id'])
+            if (checkUserDataForTable in CheckUser.username) or (checkUserDataForTable in CheckUser.first_name) or (checkUserDataForTable in CheckUser.last_name):
+                filtered_zipped_data += [(zipData1, zipData2)]
         zipped_data = filtered_zipped_data
 
     context = {
