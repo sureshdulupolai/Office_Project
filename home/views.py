@@ -253,6 +253,8 @@ def MailOpenPageFunction(request, mail_id, Page_Check):
     elif Page_Check == 2:
         Check_Name = 'Reciver'
 
+    # print(MailData)
+
     context = {
         'Check_Name' : Check_Name,
         'mailData' : MailData,
