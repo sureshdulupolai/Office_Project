@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .models import Profile, Mail
+# for date and month
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 def signUpPageFunction(request):
@@ -96,8 +99,8 @@ def tablePageFunction(request):
     zipped_data = zip(profile, lst_data)
 
     checkUserDataForTable = request.GET.get('search_user')
-    print(checkUserDataForTable)
-    print()
+    # print(checkUserDataForTable)
+    # print()
     if checkUserDataForTable:
         filtered_zipped_data = []
         for zipData1, zipData2 in zipped_data:
@@ -237,6 +240,14 @@ def ownMailSendPageFunction(request):
 
     first = user_data.first_name + ' ' + user_data.last_name
 
+    for mail in mails:
+        one_month_later = mail.text_time + relativedelta(months=1)
+        print(mail.text_time + relativedelta(months=1))
+        # print(mail.text_time)
+        # print(bool(mail.text_time > one_month_later))
+        if mail.text_time > one_month_later:
+            mail.delete()
+        
     context = {
         'check' : 2,
         'u_name' : first,
@@ -252,8 +263,6 @@ def MailOpenPageFunction(request, mail_id, Page_Check):
         Check_Name = 'Sender'
     elif Page_Check == 2:
         Check_Name = 'Reciver'
-
-    # print(MailData)
 
     context = {
         'Check_Name' : Check_Name,

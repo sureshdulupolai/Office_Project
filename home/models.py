@@ -35,7 +35,7 @@ class Mail(models.Model):
     def __str__(self):
         return str(
             (
-                self.names.username , self.text_time
+                self.names.username
             )
         )
     
