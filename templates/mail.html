@@ -7,7 +7,11 @@
     <table class="table table-bordered table-striped table-dark">
         <thead class="thead-light">
             <tr>
-                <th>Sender</th>
+                {% if check == 1 %}
+                    <th>Sender</th>
+                {% elif check == 2 %}
+                    <th>Reciver</th>
+                {% endif %}
                 <th>Subject</th>
                 <th>Attachment</th>
                 <th>Date</th>
@@ -17,7 +21,11 @@
             {% if mail %}
                 {% for i in mail %}
                     <tr>
-                        <td>{{ i.user_name }}</td>
+                        {% if check == 1 %}
+                            <td>{{ i.user_name }}</td>
+                        {% elif check == 2 %}
+                            <td>{{ i.names }}</td>
+                        {% endif %}
                         <td>{{ i.subject }}</td>
                         <td>
                             {% if i.files %}

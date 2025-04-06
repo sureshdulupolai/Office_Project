@@ -159,6 +159,7 @@ def mailPageFunction(request):
     first = user_data.first_name + ' ' + user_data.last_name
 
     context = {
+        'check' : 1,
         'u_name' : first,
         'mail' : mails,
         'ct_mail' : count_mail,
@@ -232,8 +233,30 @@ def profileEmailPageFunction(request, obj):
 
 def ownMailSendPageFunction(request):
     mails = Mail.objects.filter(user_name = request.user.username)
+    user_data = User.objects.get(username = request.user.username)
+
+    first = user_data.first_name + ' ' + user_data.last_name
 
     context = {
-        'mail' : mails.count()
+        'check' : 2,
+        'u_name' : first,
+        'mail' : mails,
+        'ct_mail' : mails.count()
     }
-    return render(request, 'ownMailSend.html', context)
+    return render(request, 'mail.html', context)
+
+# def mailPageFunction(request):
+#     user_data = User.objects.get(username = request.user.username)
+#     mails = Mail.objects.filter(names = request.user.id)
+
+#     count_mail = mails.count()
+
+#     first = user_data.first_name + ' ' + user_data.last_name
+
+#     context = {
+#         'u_name' : first,
+#         'mail' : mails,
+#         'ct_mail' : count_mail,
+#     }
+    
+#     return render(request, 'mail.html', context)
