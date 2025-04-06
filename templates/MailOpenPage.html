@@ -54,8 +54,8 @@
     
           <div class="d-flex gap-3 mt-4">
             <button class="btn btn-outline-light">Delete</button>
-            {% if if Check_Name == 'Sender' %}
-              <button class="btn btn-outline-light">📤 Re-send Mail</button>
+            {% if Check_Name == 'Sender' %}
+              <a href="{% url 'DirectMessage' mailData.user_name Check_Name %}" class="btn btn-outline-light">📤 Re-send Mail</a>
             {% endif %}
             {% if Check_Name == 'Sender' %}
               <a href="{% url 'mail' %}" class="btn btn-outline-light">🔙 Go Back</a>

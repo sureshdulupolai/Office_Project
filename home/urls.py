@@ -14,4 +14,5 @@ urlpatterns = [
     path('mail-send/direct-profile/<str:obj>/', views.profileEmailPageFunction, name='profileEmail'),
     path('send-mail-to/', views.ownMailSendPageFunction, name='sendUs'),
     path('mail-open/<int:mail_id>/<int:Page_Check>/', views.MailOpenPageFunction, name='MailOpen'),
+    path('message-mail/<str:obj>/<str:choice>/', views.DirectMessageFromMail, name='DirectMessage'),
 ]

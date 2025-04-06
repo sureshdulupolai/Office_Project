@@ -259,3 +259,9 @@ def MailOpenPageFunction(request, mail_id, Page_Check):
     }
     
     return render(request, 'MailOpenPage.html', context)
+
+def DirectMessageFromMail(request, obj, choice):
+    context = {
+        'obj' : obj,
+    }
+    return render(request, 'profileEmail.html', context)
