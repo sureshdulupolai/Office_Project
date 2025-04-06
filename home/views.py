@@ -229,3 +229,11 @@ def profileEmailPageFunction(request, obj):
         'obj' : obj,
     }
     return render(request, 'profileEmail.html', context)
+
+def ownMailSendPageFunction(request):
+    mails = Mail.objects.filter(user_name = request.user.username)
+
+    context = {
+        'mail' : mails.count()
+    }
+    return render(request, 'ownMailSend.html', context)
