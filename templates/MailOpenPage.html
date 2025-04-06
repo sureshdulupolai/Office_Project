@@ -54,8 +54,14 @@
     
           <div class="d-flex gap-3 mt-4">
             <button class="btn btn-outline-light">Delete</button>
-            <button class="btn btn-outline-light">📤 Re-send Mail</button>
-            <button class="btn btn-outline-light">🔙 Go Back</button>
+            {% if if Check_Name == 'Sender' %}
+              <button class="btn btn-outline-light">📤 Re-send Mail</button>
+            {% endif %}
+            {% if Check_Name == 'Sender' %}
+              <a href="{% url 'mail' %}" class="btn btn-outline-light">🔙 Go Back</a>
+            {% elif Check_Name == 'Reciver' %}
+              <a href="{% url 'sendUs' %}" class="btn btn-outline-light">🔙 Go Back</a>
+            {% endif %}
           </div>
         </div>
     </div>
