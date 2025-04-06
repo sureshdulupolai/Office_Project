@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    .email-card {
+      border: 2px solid white;
+      color: white;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .email-info {
+      margin-bottom: 15px;
+    }
+    .email-label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .a-none{
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+<div style="width: 99vw; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: auto;">
+    <div class="container my-5">
+        <div class="email-card">
+          <h3 class="mb-4">📧 Email Details : {{ mailData.text_time }}</h3>
+    
+          <div class="email-info">
+            {% if Check_Name == 'Sender' %}
+                <span class="email-label">Sender Username:</span> {{ mailData.user_name }}
+            {% elif Check_Name == 'Reciver' %}
+                <span class="email-label">Reciver Username:</span> {{ mailData.names }}
+            {% endif %}
+          </div>
+
+          <div class="email-info">
+            <span class="email-label">Subject:</span> {{ mailData.subject }}
+          </div>
+
+          <div class="email-info">
+            <span class="email-label">Message:</span><br>
+            <div class="ms-2 mt-3">
+                <span style="white-space: pre-line;">{{ mailData.text }}</span>
+            </div>
+          </div>
+
+          <div class="email-info">
+            {% if mailData.files %}
+                <span class="email-label">Attachment:</span> <a class="a-none" href="/media/{{ mailData.files }}" target="_blank">Check Attachment</a>
+            {% else %}  
+                <span class="email-label">Attachment:</span> No Attachment Sent
+            {% endif %}
+          </div>
+    
+          <div class="d-flex gap-3 mt-4">
+            <button class="btn btn-outline-light">Delete</button>
+            <button class="btn btn-outline-light">📤 Re-send Mail</button>
+            <button class="btn btn-outline-light">🔙 Go Back</button>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

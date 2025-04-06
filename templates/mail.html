@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block body %}
+<style>
+    .a-none{
+        color: white;
+        text-decoration: none;
+    }
+</style>
 <div class="container mt-5 border border-light rounded p-4 bg-dark text-white" style="position: relative; top: 10vh;">
     <h2 class="text-center mb-4">{{ u_name }} Mails <span class="text-secondary">({{ ct_mail }})</span></h2>
 
@@ -26,7 +32,7 @@
                         {% elif check == 2 %}
                             <td>{{ i.names }}</td>
                         {% endif %}
-                        <td>{{ i.subject }}</td>
+                        <td><a class="a-none" href="{% url 'MailOpen' i.id check %}">{{ i.subject }}</a></td>
                         <td>
                             {% if i.files %}
                                 <a href="/media/{{ i.files }}" target="_blank" class="text-warning text-decoration-none ">Download PDF</a>

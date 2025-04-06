@@ -245,18 +245,17 @@ def ownMailSendPageFunction(request):
     }
     return render(request, 'mail.html', context)
 
-# def mailPageFunction(request):
-#     user_data = User.objects.get(username = request.user.username)
-#     mails = Mail.objects.filter(names = request.user.id)
+def MailOpenPageFunction(request, mail_id, Page_Check):
+    MailData = Mail.objects.get(id = mail_id)
+    Check_Name = ''
+    if Page_Check == 1:
+        Check_Name = 'Sender'
+    elif Page_Check == 2:
+        Check_Name = 'Reciver'
 
-#     count_mail = mails.count()
-
-#     first = user_data.first_name + ' ' + user_data.last_name
-
-#     context = {
-#         'u_name' : first,
-#         'mail' : mails,
-#         'ct_mail' : count_mail,
-#     }
+    context = {
+        'Check_Name' : Check_Name,
+        'mailData' : MailData,
+    }
     
-#     return render(request, 'mail.html', context)
+    return render(request, 'MailOpenPage.html', context)
