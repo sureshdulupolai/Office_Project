@@ -196,7 +196,7 @@ def mailSendPageFunction(request):
             files=files
         )
         obj.save()
-        return redirect('home')
+        return redirect('sendUs')
 
     context = {
         'users': data,
@@ -224,8 +224,8 @@ def profileEmailPageFunction(request, obj):
             files=files
         )
         obj.save()
-        return redirect('home')
-    
+        return redirect('sendUs')
+        
     context = {
         'obj' : obj,
     }
@@ -261,7 +261,34 @@ def MailOpenPageFunction(request, mail_id, Page_Check):
     return render(request, 'MailOpenPage.html', context)
 
 def DirectMessageFromMail(request, obj, choice):
+    if request.method == 'POST':
+        selected_user_id = obj
+        subject = request.POST.get('subject')
+        text = request.POST.get('text')
+        files = request.FILES.get('files')
+        username = str(request.user.username)
+
+        # Get the User object
+        # print(selected_user_id)
+        selected_user = User.objects.get(username=selected_user_id)
+        # print(selected_user)
+
+        obj = Mail(
+            names=selected_user,
+            user_name=username,
+            subject=subject,
+            text=text,
+            files=files
+        )
+        obj.save()
+        return redirect('sendUs')
+    
     context = {
         'obj' : obj,
     }
     return render(request, 'profileEmail.html', context)
+
+def DeleteMessagePageFunction(request, msg_id):
+    MailDelete = Mail.objects.get(id = msg_id)
+    MailDelete.delete()
+    return redirect('sendUs')
