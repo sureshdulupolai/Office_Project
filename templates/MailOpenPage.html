@@ -23,11 +23,11 @@
 <div style="width: 99vw; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: auto;">
     <div class="container my-5">
         <div class="email-card">
-          <h3 class="mb-4">📧 Email Details : {{ mailData.text_time }}</h3>
+          <h3 class="mb-4">📧 Email Details : {{ mailData.text_time }}</h3> 
     
           <div class="email-info">
             {% if Check_Name == 'Sender' %}
-                <span class="email-label">Sender Username:</span> {{ mailData.user_name }}
+                <span class="email-label">Sender Username:</span> {{ mailData.user_name }} <a href="{% url 'SaveMail' mailData.id %}" class="btn btn-info">Save</a>
             {% elif Check_Name == 'Reciver' %}
                 <span class="email-label">Reciver Username:</span> {{ mailData.names }}
             {% endif %}

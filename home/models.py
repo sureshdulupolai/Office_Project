@@ -39,8 +39,9 @@ class Mail(models.Model):
             )
         )
     
-class SaveMails(models.Model):
+class SaveDatasM(models.Model):
     names = models.ForeignKey(User, on_delete=models.CASCADE)
+    savemail_data = models.CharField(max_length=100)
     user_name = models.CharField(max_length=500)
     subject = models.CharField(max_length=1000)
     text = models.CharField(max_length=5000)

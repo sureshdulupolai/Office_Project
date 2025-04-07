@@ -5,9 +5,11 @@ from .models import Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .models import Profile, Mail
+from .models import Profile, Mail, SaveDatasM
 # for date and month
 from datetime import datetime
+# ctrl + sift + p
+# reload windoe
 from dateutil.relativedelta import relativedelta
 
 # Create your views here.
@@ -258,6 +260,16 @@ def ownMailSendPageFunction(request):
 
 def MailOpenPageFunction(request, mail_id, Page_Check):
     MailData = Mail.objects.get(id = mail_id)
+    # get(savemail_data = MailData.id)
+    checkData = SaveDatasM.objects.all().values()
+    c1 = 0
+    for cd in checkData:
+        if cd['id'] == MailData.id:
+            c1 += 1
+    if c1 == 1:
+        pass
+
+
     Check_Name = ''
     if Page_Check == 1:
         Check_Name = 'Sender'
@@ -303,3 +315,17 @@ def DeleteMessagePageFunction(request, msg_id):
     MailDelete = Mail.objects.get(id = msg_id)
     MailDelete.delete()
     return redirect('sendUs')
+
+def saveMailPageFunction(request, mail_id):
+    mail = Mail.objects.get(id = mail_id)
+    SM = SaveMails(
+        savemail_data = mail.id,
+        names = mail.names,
+        user_name = mail.user_name,
+        subject = mail.subject,
+        text = mail.text,
+        files = mail.files,
+        text_time = mail.text_time,
+    )
+    SM.save()
+    return render(request, 'saveMail.html')
