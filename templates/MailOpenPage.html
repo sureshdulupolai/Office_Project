@@ -27,7 +27,10 @@
     
           <div class="email-info">
             {% if Check_Name == 'Sender' %}
-                <span class="email-label">Sender Username:</span> {{ mailData.user_name }} <a href="{% url 'SaveMail' mailData.id %}" class="btn btn-info">Save</a>
+                <span class="email-label">Sender Username:</span> {{ mailData.user_name }} 
+                {% if saveButton == 0 %}
+                  <a href="{% url 'SaveMail' mailData.id %}" class="btn btn-info">Save</a>
+                {% endif %}
             {% elif Check_Name == 'Reciver' %}
                 <span class="email-label">Reciver Username:</span> {{ mailData.names }}
             {% endif %}

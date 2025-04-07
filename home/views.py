@@ -260,15 +260,19 @@ def ownMailSendPageFunction(request):
 
 def MailOpenPageFunction(request, mail_id, Page_Check):
     MailData = Mail.objects.get(id = mail_id)
-    # get(savemail_data = MailData.id)
     checkData = SaveDatasM.objects.all().values()
     c1 = 0
     for cd in checkData:
-        if cd['id'] == MailData.id:
+        # print(type(cd['savemail_data'])) # str
+        # print(type(MailData.id)) # int
+        if int(cd['savemail_data']) == int(MailData.id):
             c1 += 1
-    if c1 == 1:
-        pass
+            print('heloo')
 
+    if c1 == 1:
+        saveButton = 1
+    else:
+        saveButton = 0
 
     Check_Name = ''
     if Page_Check == 1:
@@ -277,6 +281,7 @@ def MailOpenPageFunction(request, mail_id, Page_Check):
         Check_Name = 'Reciver'
 
     context = {
+        'saveButton' : saveButton,
         'Check_Name' : Check_Name,
         'mailData' : MailData,
     }
@@ -318,7 +323,7 @@ def DeleteMessagePageFunction(request, msg_id):
 
 def saveMailPageFunction(request, mail_id):
     mail = Mail.objects.get(id = mail_id)
-    SM = SaveMails(
+    SM = SaveDatasM(
         savemail_data = mail.id,
         names = mail.names,
         user_name = mail.user_name,
