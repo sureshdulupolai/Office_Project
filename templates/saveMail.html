@@ -6,25 +6,48 @@
         text-decoration: none;
     }
 </style>
-<div class="container mt-5 border border-light rounded p-4 bg-dark text-white" style="position: relative; top: 10vh;">
-    <h2 class="text-center mb-4">Welcome to MailBox</h2>
 
-    <p class="text-center text-secondary">This is your secure mail system. You can send and receive mails, check attachments, and manage your inbox.</p>
-    
-    <!-- Default Mail Table Layout -->
+<div class="container mt-5 border border-light rounded p-4 bg-dark text-white" style="position: relative; top: 10vh;">
+    <h2 class="text-center mb-4">Welcome to MailBox Save</h2>
+    <p class="text-center text-white">This is your secure mail system. You can send and receive mails, check attachments, and manage your inbox.</p>
+
+    <!-- Mail Table -->
     <table class="table table-bordered table-striped table-dark mt-4">
-        <thead class="thead-light">
+        <thead>
             <tr>
-                <th>Sender</th>
+                <th class="col-2">Sender</th>
                 <th>Subject</th>
                 <th>Attachment</th>
                 <th>Date</th>
+                <th class="col-1 text-center">Delete</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td colspan="4" class="text-center text-warning">No mails available yet. Start by sending a new mail!</td>
-            </tr>
+            {% if mails %}
+                {% for mail in mails %}
+                    <tr>
+                        <td>{{ mail.user_name }}</td>
+                        <td><a class="a-none" href="#">{{ mail.subject }}</a></td>
+                        <td>
+                            {% if mail.files %}
+                                <a href="/media/{{ mail.files }}" target="_blank" class="text-warning text-decoration-none">Download PDF</a>
+                            {% else %}
+                                No attachment
+                            {% endif %}
+                        </td>
+                        <td>{{ mail.text_time }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'DeleteMessage' mail.id 2 %}" class="btn btn-sm btn-outline-danger" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-warning">No mails available yet. Start by sending a new mail!</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

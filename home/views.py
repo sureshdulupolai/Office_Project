@@ -316,10 +316,17 @@ def DirectMessageFromMail(request, obj, choice):
     }
     return render(request, 'profileEmail.html', context)
 
-def DeleteMessagePageFunction(request, msg_id):
-    MailDelete = Mail.objects.get(id = msg_id)
-    MailDelete.delete()
-    return redirect('sendUs')
+def DeleteMessagePageFunction(request, msg_id, Page):
+    if int(Page) == 1:
+        MailDelete = Mail.objects.get(id = msg_id)
+        MailDelete.delete()
+        return redirect('sendUs')
+    elif int(Page) == 2:
+        SaveMail = SaveDatasM.objects.get(savemail_data = msg_id)
+        SaveMail.delete()
+        return redirect('SaveMail')
+    else:
+        return HttpResponse('Page Not Found')
 
 def successfullSaveMailPageFunction(request, mail_id):
     mail = Mail.objects.get(id = mail_id)
@@ -336,6 +343,10 @@ def successfullSaveMailPageFunction(request, mail_id):
     return render(request, 'successfullSaveMail.html')
 
 def saveMailPageFunction(request):
-    mails = SaveDatasM.objects.filter(user_name = request.user.username)
-    print(mails)
-    return render(request, 'saveMail.html')
+    mails = SaveDatasM.objects.filter(names = request.user.id)
+    for i in mails:
+        print(i.subject)
+    context = {
+        'mails' : mails,
+    }
+    return render(request, 'saveMail.html', context)
