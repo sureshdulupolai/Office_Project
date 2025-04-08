@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
-    body{
+    body {
         width: 100%;
-        /* height: 100vh; */
         overflow: auto;
         background-color: rgb(33, 37, 41);
+    }
+    .h3-top{
+        position: relative;
+        top: 10px;
     }
     .company-img {
         width: 100%;
         height: 300px;
         object-fit: cover;
         border-radius: 10px;
+        transition: transform 0.4s ease-in-out;
+    }
+    .company-img:hover {
+        transform: scale(1.02);
     }
     .stats-box {
         background: rgba(255, 255, 255, 0.1);
@@ -19,44 +26,117 @@
         border-radius: 10px;
         text-align: center;
         font-size: 1.2rem;
+        transition: background 0.3s ease;
     }
-    h3{
-        box-sizing: border-box;
-        padding-top: 20px;
+    .stats-box:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+    h3, h2 {
         color: white;
     }
-    p{
+    p {
         color: white;
+    }
+    .fade-in {
+        animation: fadeIn 3s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 </style>
 
- <!-- Header Section with Company Image -->
- <div class="container text-center my-4">
-    <h1 class="fw-bold">Welcome to Our Office Management System</h1>
-    <img src="../media/office.jpg" alt="Company Image" class="company-img mt-3">
+<!-- Header Section with Company Image -->
+<div class="container text-center my-4 fade-in">
+    <img src="../media/office.jpg" alt="Company Image" class="company-img mt-5">
 </div>
 
 <!-- Statistics Section -->
-<div class="container mt-4">
+<div class="container mt-5 fade-in">
     <div class="row text-center">
         <div class="col-md-4">
             <div class="stats-box">
-                <h3>Total Employees</h3>
-                <p>{{ pf_count }}</p>
+                <h3 class="h3-top">Total Employees</h3>
+                <p class="h3-top">{{ pf_count }}</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="stats-box">
-                <h3>Managers</h3>
-                <p>{{ manager }}</p>
+                <h3 class="h3-top">Managers</h3>
+                <p class="h3-top">{{ manager }}</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="stats-box">
-                <h3>Company Owner</h3>
-                <p>{{ owner }}</p>
+                <h3 class="h3-top">Company Owner</h3>
+                <p class="h3-top">{{ owner }}</p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- About Us Section -->
+<div class="container my-5 text-white fade-in">
+    <h2 class="text-center mb-3">About Our Company</h2>
+    <div class="d-flex justify-content-center align-items-center mb-3">
+        <div class="bg-white" style="height: 2px; width: 10vw;"></div>
+    </div>
+    <p class="fs-5 text-center">
+        We are a modern tech-driven organization focused on simplifying office management processes.
+        Our goal is to enhance productivity, transparency, and security in day-to-day operations.
+        With an experienced leadership team and dedicated staff, we ensure smooth workflow across all departments.
+    </p>
+</div>
+
+<!-- Company Gallery Section -->
+<div class="container my-5 fade-in">
+    <h2 class="text-white text-center mb-4">Inside Our Office</h2>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <img src="../media/office.jpg" class="img-fluid rounded-3" alt="Office 1">
+        </div>
+        <div class="col-md-4">
+            <img src="../media/office.jpg" class="img-fluid rounded-3" alt="Office 2">
+        </div>
+        <div class="col-md-4">
+            <img src="../media/office.jpg" class="img-fluid rounded-3" alt="Team">
+        </div>
+    </div>
+</div>
+
+<!-- Why Choose Us -->
+<div class="container my-5 fade-in">
+    <h2 class="text-center text-white mb-4">Why Choose Our System?</h2>
+    <div class="row text-white text-center g-4">
+        <div class="col-md-3">
+            <div class="stats-box">
+                <i class="bi bi-speedometer2 fs-1 mb-2"></i>
+                <h4>Fast Workflow</h4>
+                <p>Streamline employee operations with minimal delay.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-box">
+                <i class="bi bi-shield-lock fs-1 mb-2"></i>
+                <h4>Secure Data</h4>
+                <p>Your company’s information is encrypted and safe.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-box">
+                <i class="bi bi-people fs-1 mb-2"></i>
+                <h4>Team Friendly</h4>
+                <p>Collaborate, assign tasks, and manage users easily.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-box">
+                <i class="bi bi-graph-up-arrow fs-1 mb-2"></i>
+                <h4>Growth Oriented</h4>
+                <p>Analyze reports and improve overall productivity.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
