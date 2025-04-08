@@ -321,7 +321,7 @@ def DeleteMessagePageFunction(request, msg_id):
     MailDelete.delete()
     return redirect('sendUs')
 
-def saveMailPageFunction(request, mail_id):
+def successfullSaveMailPageFunction(request, mail_id):
     mail = Mail.objects.get(id = mail_id)
     SM = SaveDatasM(
         savemail_data = mail.id,
@@ -333,4 +333,9 @@ def saveMailPageFunction(request, mail_id):
         text_time = mail.text_time,
     )
     SM.save()
+    return render(request, 'successfullSaveMail.html')
+
+def saveMailPageFunction(request):
+    mails = SaveDatasM.objects.filter(user_name = request.user.username)
+    print(mails)
     return render(request, 'saveMail.html')

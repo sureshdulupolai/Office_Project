@@ -1,4 +1,31 @@
 {% extends 'base.html' %}
 {% block body %}
-Save Data
+<style>
+    .a-none {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+<div class="container mt-5 border border-light rounded p-4 bg-dark text-white" style="position: relative; top: 10vh;">
+    <h2 class="text-center mb-4">Welcome to MailBox</h2>
+
+    <p class="text-center text-secondary">This is your secure mail system. You can send and receive mails, check attachments, and manage your inbox.</p>
+    
+    <!-- Default Mail Table Layout -->
+    <table class="table table-bordered table-striped table-dark mt-4">
+        <thead class="thead-light">
+            <tr>
+                <th>Sender</th>
+                <th>Subject</th>
+                <th>Attachment</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4" class="text-center text-warning">No mails available yet. Start by sending a new mail!</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

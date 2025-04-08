@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    .btn-custom {
+        min-width: 150px;
+    }
+</style>
+<div style="width: 100vw; height: 75vh; display: flex; justify-content: center; align-items: center;">
+    <div class="container mt-5">
+        <div class="alert alert-success text-center p-5 shadow rounded" role="alert" style="position: relative; top: 10vh;">
+            <h3 class="mb-4">✅ Successfully Mail Saved!</h3>
+            <p>Your mail has been stored in the system.</p>
+    
+            <div class="d-flex justify-content-center mt-4 gap-3">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-custom">🏠 Go to Home</a>
+                <a href="#" class="btn btn-success btn-custom">✉️ Check Save Mail</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

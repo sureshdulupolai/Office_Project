@@ -16,5 +16,6 @@ urlpatterns = [
     path('mail-open/<int:mail_id>/<int:Page_Check>/', views.MailOpenPageFunction, name='MailOpen'),
     path('message-mail/<str:obj>/<str:choice>/', views.DirectMessageFromMail, name='DirectMessage'),
     path('delete-message/<int:msg_id>/', views.DeleteMessagePageFunction, name='DeleteMessage'),
-    path('save-mail/<int:mail_id>/', views.saveMailPageFunction, name='SaveMail'),
+    path('sucessfull-saved/<int:mail_id>/', views.successfullSaveMailPageFunction, name='successfullSaveMail'),
+    path('save-mail/', name='SaveMail'),
 ]
