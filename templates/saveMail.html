@@ -26,8 +26,8 @@
             {% if mails %}
                 {% for mail in mails %}
                     <tr>
-                        <td>{{ mail.user_name }}</td>
-                        <td><a class="a-none" href="#">{{ mail.subject }}</a></td>
+                        <td>{{ mail.user_name|truncatechars:20 }}</td>
+                        <td><a class="a-none" href="#">{{ mail.subject|truncatechars:60 }}</a></td>
                         <td>
                             {% if mail.files %}
                                 <a href="/media/{{ mail.files }}" target="_blank" class="text-warning text-decoration-none">Download PDF</a>
@@ -37,7 +37,7 @@
                         </td>
                         <td>{{ mail.text_time }}</td>
                         <td class="text-center">
-                            <a href="{% url 'DeleteMessage' mail.id 2 %}" class="btn btn-sm btn-outline-danger" title="Delete">
+                            <a href="{% url 'DeleteMessage' mail.savemail_data 2 %}" class="btn btn-sm btn-outline-danger" title="Delete">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>

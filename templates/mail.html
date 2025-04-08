@@ -7,7 +7,11 @@
     }
 </style>
 <div class="container mt-5 border border-light rounded p-4 bg-dark text-white" style="position: relative; top: 10vh;">
-    <h2 class="text-center mb-4">{{ u_name }} Mails <span class="text-secondary">({{ ct_mail }})</span></h2>
+    {% if check == 1 %}
+        <h2 class="text-center mb-4"><i class="bi bi-inbox" style="position: relative; top: 2px;"></i> {{ u_name }} InBox <span class="text-secondary">({{ ct_mail }})</span></h2>
+    {% elif check == 2 %}
+        <h2 class="text-center mb-4"><i class="bi bi-send-check" style="position: relative; top: 2px;"></i> {{ u_name }} Sent Mails <span class="text-secondary">({{ ct_mail }})</span></h2>
+    {% endif %}
 
     <!-- Mail List Table -->
     <table class="table table-bordered table-striped table-dark">

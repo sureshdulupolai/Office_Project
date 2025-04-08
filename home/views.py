@@ -322,7 +322,7 @@ def DeleteMessagePageFunction(request, msg_id, Page):
         MailDelete.delete()
         return redirect('sendUs')
     elif int(Page) == 2:
-        SaveMail = SaveDatasM.objects.get(savemail_data = msg_id)
+        SaveMail = SaveDatasM.objects.filter(savemail_data = msg_id).first()
         SaveMail.delete()
         return redirect('SaveMail')
     else:
@@ -344,8 +344,6 @@ def successfullSaveMailPageFunction(request, mail_id):
 
 def saveMailPageFunction(request):
     mails = SaveDatasM.objects.filter(names = request.user.id)
-    for i in mails:
-        print(i.subject)
     context = {
         'mails' : mails,
     }
