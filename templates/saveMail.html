@@ -27,7 +27,7 @@
                 {% for mail in mails %}
                     <tr>
                         <td>{{ mail.user_name|truncatechars:20 }}</td>
-                        <td><a class="a-none" href="#">{{ mail.subject|truncatechars:60 }}</a></td>
+                        <td><a class="a-none" href="{% url 'MailOpen' mail.savemail_data Check %}">{{ mail.subject|truncatechars:60 }}</a></td>
                         <td>
                             {% if mail.files %}
                                 <a href="/media/{{ mail.files }}" target="_blank" class="text-warning text-decoration-none">Download PDF</a>

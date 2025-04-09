@@ -379,32 +379,41 @@ def ownMailSendPageFunction(request):
     return render(request, 'mail.html', context)
 
 def MailOpenPageFunction(request, mail_id, Page_Check):
-    MailData = Mail.objects.get(id = mail_id)
-    checkData = SaveDatasM.objects.all().values()
-    c1 = 0
-    for cd in checkData:
-        # print(type(cd['savemail_data'])) # str
-        # print(type(MailData.id)) # int
-        if int(cd['savemail_data']) == int(MailData.id):
-            c1 += 1
-            print('heloo')
+    if int(Page_Check) == 3:
+        MailDatas = SaveDatasM.objects.get(savemail_data = mail_id)
+        context = {
+            'mailData' : MailDatas,
+            'Check_Name' : 'savemail',
+            'Page_Check' : int(Page_Check),
+        }
 
-    if c1 == 1:
-        saveButton = 1
     else:
-        saveButton = 0
+        MailData = Mail.objects.get(id = mail_id)
+        checkData = SaveDatasM.objects.all().values()
+        c1 = 0
+        for cd in checkData:
+            # print(type(cd['savemail_data'])) # str
+            # print(type(MailData.id)) # int
+            if int(cd['savemail_data']) == int(MailData.id):
+                c1 += 1
+                # print('heloo')
 
-    Check_Name = ''
-    if Page_Check == 1:
-        Check_Name = 'Sender'
-    elif Page_Check == 2:
-        Check_Name = 'Reciver'
+        if c1 == 1:
+            saveButton = 1
+        else:
+            saveButton = 0
 
-    context = {
-        'saveButton' : saveButton,
-        'Check_Name' : Check_Name,
-        'mailData' : MailData,
-    }
+        Check_Name = ''
+        if Page_Check == 1:
+            Check_Name = 'Sender'
+        elif Page_Check == 2:
+            Check_Name = 'Reciver'
+        
+        context = {
+            'saveButton' : saveButton,
+            'Check_Name' : Check_Name,
+            'mailData' : MailData,
+        }
     
     return render(request, 'MailOpenPage.html', context)
 
@@ -466,5 +475,6 @@ def saveMailPageFunction(request):
     mails = SaveDatasM.objects.filter(names = request.user.id)
     context = {
         'mails' : mails,
+        'Check' : '3',
     }
     return render(request, 'saveMail.html', context)

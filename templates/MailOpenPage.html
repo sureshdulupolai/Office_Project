@@ -26,10 +26,12 @@
           <h3 class="mb-4">📧 Email Details : {{ mailData.text_time }}</h3> 
     
           <div class="email-info">
-            {% if Check_Name == 'Sender' %}
+            {% if Check_Name == 'Sender' or Check_Name == 'savemail' %}
                 <span class="email-label">Sender Username:</span> {{ mailData.user_name }} 
                 {% if saveButton == 0 %}
-                  <a href="{% url 'successfullSaveMail' mailData.id %}" class="btn btn-info">Save</a>
+                  <a href="{% url 'successfullSaveMail' mailData.id %}" class="btn text-black btn-info fw-semibold ms-2" style="width: 80px; height: 30px;"><span style="position: relative; top: -4px;">Save</span></a>
+                {% else %}
+                <a href="#" class="btn text-white btn-success fw-semibold ms-2" style="width: auto; height: 30px;"><span style="position: relative; top: -4px;">&#10003; Saved Mail</span></a>
                 {% endif %}
             {% elif Check_Name == 'Reciver' %}
                 <span class="email-label">Reciver Username:</span> {{ mailData.names }}
@@ -61,11 +63,16 @@
             {% endif %}
             {% if Check_Name == 'Sender' %}
               <a href="{% url 'DirectMessage' mailData.user_name Check_Name %}" class="btn btn-outline-light">📤 Re-send Mail</a>
+            {% elif Check_Name == 'savemail' %}
+              <a href="{% url 'DirectMessage' mailData.user_name Check_Name %}" class="btn btn-outline-light">📤 Re-send Mail</a>
             {% endif %}
+
             {% if Check_Name == 'Sender' %}
               <a href="{% url 'mail' %}" class="btn btn-outline-light">🔙 Go Back</a>
             {% elif Check_Name == 'Reciver' %}
               <a href="{% url 'sendUs' %}" class="btn btn-outline-light">🔙 Go Back</a>
+            {% elif Check_Name == 'savemail' %}
+              <a href="{% url 'SaveMail' %}" class="btn btn-outline-light">🔙 Go Back</a>
             {% endif %}
           </div>
         </div>
