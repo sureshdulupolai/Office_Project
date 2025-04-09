@@ -16,19 +16,31 @@ from dateutil.relativedelta import relativedelta
 def signUpPageFunction(request):
     users = userSignupPage()
     if request.method == 'POST':
-        users = userSignupPage(request.POST)
+        CC = request.POST.get('Company_Code') ; C1 = 0 
+        lstOfCompanyCodeOffice = ['AND1012890', 'BOR8970768', 'DR09009267']
+        for CCO in lstOfCompanyCodeOffice:
+            if CC == CCO:
+                C1 += 1
+                break
+            else:
+                continue
 
-        if users.is_valid():
-            user = users.save()
+        if C1 == 1:
+            users = userSignupPage(request.POST)
 
-            contact = request.POST.get('contact_no')
+            if users.is_valid():
+                user = users.save()
 
-            obj = Profile(
-                name = user,
-                contact_no = contact
-            )
-            obj.save()
-            return redirect('home')
+                contact = request.POST.get('contact_no')
+
+                obj = Profile(
+                    name = user,
+                    contact_no = contact
+                )
+                obj.save()
+                return redirect('home')
+        else:
+            pass
 
     context = {
         'form' : users

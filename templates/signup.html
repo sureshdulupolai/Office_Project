@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh; overflow: auto">
-    <div class="card p-4 rounded-3 bg-light log-mt mb-3" style="width: 400px; margin-top: 160px;">
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh; overflow: auto;">
+    <div class="card p-4 rounded-3 bg-light log-mt mb-3" style="width: 400px; margin-top: 220px;">
         <h3 class="text-center mb-4">Sign Up Page</h3>
 
         <form method="POST" class="mb-3">
             {% csrf_token %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">Company Code : </label>
+                <input type="text" name="Company_Code" id="Company_Code" class="form-control" placeholder="Enter Your Company Code" required>
+            </div>
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
                 <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter First Name" required>
