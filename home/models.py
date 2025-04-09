@@ -66,3 +66,44 @@ class SaveDatasM(models.Model):
                 self.names.username
             )
         )
+
+class CategoryGroupModel(models.Model):
+    CGM_Image = models.ImageField(upload_to='CGM/', default='default_user/def_user.jpg')
+    CGM_Name = models.CharField(max_length=100)
+    CGM_Category = models.CharField(max_length=100)
+    CGM_Description = models.CharField(max_length=5000, blank=True, null=True, default='Group Chat, Description!')
+    CGM_Slogon = models.CharField(max_length=500, default='Welcome To New Group!')
+    CGM_Time = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.CGM_Name
+    
+class UserOfCGM(models.Model):
+    Steps = [
+        ('Admin', 'Admin'),
+        ('Member', 'Member'),
+    ]
+    UOC_connect = models.ForeignKey(CategoryGroupModel, on_delete=models.CASCADE)
+    UOC_Id = models.CharField(max_length=100)
+    UOC_username = models.CharField(max_length=300)
+    UOC_Time = models.DateField(default=timezone.now)
+    UOC_Category = models.CharField(choices=Steps, default='Member', max_length=50)
+
+    def __str__(self):
+        return self.UOC_username
+    
+class CGChartModel(models.Model):
+    CGC_ChatLink = models.ForeignKey(CategoryGroupModel, on_delete=models.CASCADE)
+    CGC_UserName = models.CharField(max_length=300)
+    CGC_Text = models.CharField(max_length=7000, blank=True, null=True)
+    CGC_Image = models.ImageField(upload_to='Images/', blank=True, null=True)
+    CGC_File = models.FileField(upload_to='File/', blank=True, null=True)
+    CGC_Video = models.FileField(upload_to='Video/', blank=True, null=True)
+    CGC_Time = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return str(
+            (
+                self.CGC_UserName, self.CGC_Time
+            )
+        )
