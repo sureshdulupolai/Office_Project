@@ -12,8 +12,8 @@
     }
     .company-img {
         width: 100%;
-        height: 300px;
-        object-fit: cover;
+        height: 400px;
+        object-fit: fill;
         border-radius: 10px;
         transition: transform 0.4s ease-in-out;
     }
@@ -82,25 +82,34 @@
         <div class="bg-white" style="height: 2px; width: 10vw;"></div>
     </div>
     <p class="fs-5 text-center">
-        We are a modern tech-driven organization focused on simplifying office management processes.
-        Our goal is to enhance productivity, transparency, and security in day-to-day operations.
-        With an experienced leadership team and dedicated staff, we ensure smooth workflow across all departments.
+        {{ about_company }}
     </p>
 </div>
+
+<!-- Tech Stack / Services -->
+<div class="container my-5 fade-in">
+    <h2 class="text-center text-white mb-4">🚀 Technologies We Work With</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-4">
+    {% for ts in tech_stacks %}
+        <div class="text-center text-white">
+            <img src="../media/{{ ts.techimages }}" class="rounded-circle" width="60" height="60" alt="Python">
+            <p class="mt-2 mb-0">{{ ts.techname }}</p>
+        </div>
+    {% endfor %}
+  
+    </div>
+  </div>
+  
 
 <!-- Company Gallery Section -->
 <div class="container my-5 fade-in">
     <h2 class="text-white text-center mb-4">Inside Our Office</h2>
     <div class="row g-3">
+        {% for ic in inside_company %}
         <div class="col-md-4">
-            <img src="../media/office.jpg" class="img-fluid rounded-3" alt="Office 1">
+            <img src="../media/{{ ic }}" class="img-fluid rounded-3" alt="Office 1">
         </div>
-        <div class="col-md-4">
-            <img src="../media/office.jpg" class="img-fluid rounded-3" alt="Office 2">
-        </div>
-        <div class="col-md-4">
-            <img src="../media/office.jpg" class="img-fluid rounded-3" alt="Team">
-        </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -108,35 +117,51 @@
 <div class="container my-5 fade-in">
     <h2 class="text-center text-white mb-4">Why Choose Our System?</h2>
     <div class="row text-white text-center g-4">
+        {% for os in ourSystem %}
         <div class="col-md-3">
             <div class="stats-box">
-                <i class="bi bi-speedometer2 fs-1 mb-2"></i>
-                <h4>Fast Workflow</h4>
-                <p>Streamline employee operations with minimal delay.</p>
+                <i class="{{ os.icons }}"></i>
+                <h4>{{ os.headingPoint }}</h4>
+                <p>Y{{ os.text }}</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stats-box">
-                <i class="bi bi-shield-lock fs-1 mb-2"></i>
-                <h4>Secure Data</h4>
-                <p>Your company’s information is encrypted and safe.</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stats-box">
-                <i class="bi bi-people fs-1 mb-2"></i>
-                <h4>Team Friendly</h4>
-                <p>Collaborate, assign tasks, and manage users easily.</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stats-box">
-                <i class="bi bi-graph-up-arrow fs-1 mb-2"></i>
-                <h4>Growth Oriented</h4>
-                <p>Analyze reports and improve overall productivity.</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
+
+
+<div class="container my-5 fade-in" id="join-sections">
+    {% for section in sections %}
+      <div class="row align-items-center mb-5 {% if section.reverse %}flex-md-row-reverse{% endif %}">
+        <div class="col-md-6">
+          <img src="../media/{{ section.image }}" class="img-fluid rounded-4 shadow" alt="{{ section.alt }}">
+        </div>
+        <div class="col-md-6 text-white {% if section.reverse %}pe-md-5{% else %}ps-md-5{% endif %}">
+          <h4 class="mb-3">{{ section.title }}</h4>
+          <p class="fs-5">{{ section.description }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+<!-- Trusted By Section (Bootstrap Only) -->
+{% if trusted_companies %}
+<div class="container my-5 fade-in">
+    <h2 class="text-center text-white mb-4">🤝 Trusted By Leading Companies</h2>
+    <p class="text-center text-white mb-4 fs-5">{{ count_tc }}+ Businesses Rely On Us</p>
+  
+    <div class="overflow-auto pb-2" style="white-space: nowrap; scrollbar-width: none;">
+      <div class="d-inline-flex gap-3">
+        {% for tc in trusted_companies %}
+        <div class="bg-secondary text-white px-4 py-2 rounded-pill fw-semibold">{{ tc }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  
+    <div class="text-center text-white mt-4">
+      <h5>📈 {{ count_tc }}+ Companies Trust Our Solutions</h5>
+    </div>
+  </div>
+{% endif %}
 
 {% endblock %}

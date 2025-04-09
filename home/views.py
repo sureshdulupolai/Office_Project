@@ -65,8 +65,121 @@ def logoutPageFunction(request):
 def homePageFunction(request):
     profile_count = Profile.objects.all().values().count()
     profiles = list(Profile.objects.all().values())
-    # for ss in list(Profile.objects.all().values()):
-    #     print(ss)
+    about_company = "We are a modern tech-driven organization focused on simplifying office management processes. Our goal is to enhance productivity, transparency, and security in day-to-day operations. With an experienced leadership team and dedicated staff, we ensure smooth workflow across all departments."
+
+    inside_company = [
+        'office.jpg', 'office.jpg', 'office.jpg',
+    ]
+
+    trusted_companies = [
+        "AlphaSoft Pvt Ltd",
+        "BrightEdge Tech",
+        "CodeVerse Inc.",
+        "NextGen Solutions",
+        "VisionStack",
+        "CloudEdge",
+        "MindSpark",
+        "DataNest"
+    ]
+
+    ourSystem = [
+        {
+            'headingPoint' : 'Fast Workflow',
+            'icons' : 'bi bi-speedometer2 fs-1 mb-2',
+            'text' : 'Streamline employee operations with minimal delay.',
+        },
+        {
+            'headingPoint' : 'Secure Data',
+            'icons' : 'bi bi-shield-lock fs-1 mb-2',
+            'text' : 'our company’s information is encrypted and safe.',
+        },
+        {
+            'headingPoint' : 'Team Friendly',
+            'icons' : 'bi bi-people fs-1 mb-2',
+            'text' : 'Collaborate, assign tasks, and manage users easily.',
+        },
+        {
+            'headingPoint' : 'Growth Oriented',
+            'icons' : 'bi bi-graph-up-arrow fs-1 mb-2',
+            'text' : 'Analyze reports and improve overall productivity.',
+        },
+
+    ]
+    
+    tech_stacks = [
+        {
+            "techname": "Python",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "Django",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "MySQL / SQL",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "Bootstrap",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "Node.js",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "HTML",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "CSS",
+            "techimages": "office.jpg"
+        },
+        {
+            "techname": "JavaScript",
+            "techimages": "office.jpg"
+        }
+    ]
+
+    sections = [
+        {
+            "title": "🚀 Simple Registration Process",
+            "description": "We make joining easy and transparent. Apply online, attend a short interview, and go through our smooth onboarding. Whether you're a fresher or experienced, there's an opportunity for you.",
+            "image": "office.jpg",
+            "alt": "Join Us",
+            "reverse": False
+        },
+        {
+            "title": "🎓 Internship Programs",
+            "description": "Our internship programs offer real-world experience, mentorship from seniors, and project-based learning. Perform well, and you might secure a full-time position with us!",
+            "image": "office.jpg",
+            "alt": "Internship",
+            "reverse": True
+        },
+        {
+            "title": "👔 Managerial Roles",
+            "description": "Managers lead our teams with vision. They track progress, assign roles, and boost productivity. We empower them with dashboards and autonomy to build results-driven teams.",
+            "image": "office.jpg",
+            "alt": "Manager Role",
+            "reverse": False
+        },
+        {
+            "title": "🏢 Modern Workplace Facilities",
+            "description": "High-speed internet, chill zones, meeting rooms, and cafeterias — we care for our people. Our workspace is built to inspire, relax, and support your daily work-life balance.",
+            "image": "office.jpg",
+            "alt": "Facilities",
+            "reverse": True
+        },
+        {
+            "title": "📈 Career Growth & Learning",
+            "description": "Employees receive training, rewards, and promotion opportunities. Our internal LMS and weekly sessions help you upgrade skills and climb the ladder with confidence.",
+            "image": "office.jpg",
+            "alt": "Growth Opportunities",
+            "reverse": False
+        },
+    ]
+
+    count_tc = len(trusted_companies)
 
     a1 = 0; a2 = 0
     for i in profiles:
@@ -80,6 +193,13 @@ def homePageFunction(request):
         'pf_count' : a3,
         'manager' : a2,
         'owner' : a1,
+        'about_company' : about_company,
+        'inside_company' : inside_company,
+        'trusted_companies' : trusted_companies,
+        'count_tc' : count_tc,
+        'ourSystem' : ourSystem,
+        'tech_stacks' : tech_stacks,
+        'sections' : sections,
     }
     return render(request, 'home.html', context)
 
