@@ -5,7 +5,7 @@ from .models import Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .models import Profile, Mail, SaveDatasM
+from .models import Profile, Mail, SaveDatasM, CompanyCodeModel
 # for date and month
 from datetime import datetime
 # ctrl + sift + p
@@ -16,29 +16,42 @@ from dateutil.relativedelta import relativedelta
 def signUpPageFunction(request):
     users = userSignupPage()
     if request.method == 'POST':
-        CC = request.POST.get('Company_Code') ; C1 = 0 
-        lstOfCompanyCodeOffice = ['AND1012890', 'BOR8970768', 'DR09009267']
-        for CCO in lstOfCompanyCodeOffice:
-            if CC == CCO:
-                C1 += 1
-                break
+        pass1 = request.POST.get('password1')
+        pass2 = request.POST.get('password2')
+        if pass1 == pass2:
+            CC = request.POST.get('Company_Code') ; C1 = 0 
+            lstOfCompanyCodeOffice = ['AND1234567', 'BOR8976888', 'DR09009267', 'GHK98206468']
+            for CCO in lstOfCompanyCodeOffice:
+                if CC == CCO:
+                    C1 += 1
+                    break
+                else:
+                    continue
+
+            if C1 == 1:
+                users = userSignupPage(request.POST)
+
+                if users.is_valid():
+                    user = users.save()
+                    
+                    CCM_Obj = CompanyCodeModel(
+                        CompanyId = request.POST.get('Company_Code'),
+                        user_name = user,
+                        user_pass = request.POST.get('password2'),
+                    )
+
+                    CCM_Obj.save()
+                    
+                    contact = request.POST.get('contact_no')
+
+                    obj = Profile(
+                        name = user,
+                        contact_no = contact
+                    )
+                    obj.save()
+                    return redirect('login')
             else:
-                continue
-
-        if C1 == 1:
-            users = userSignupPage(request.POST)
-
-            if users.is_valid():
-                user = users.save()
-
-                contact = request.POST.get('contact_no')
-
-                obj = Profile(
-                    name = user,
-                    contact_no = contact
-                )
-                obj.save()
-                return redirect('home')
+                pass
         else:
             pass
 

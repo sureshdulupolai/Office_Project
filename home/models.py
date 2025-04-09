@@ -27,9 +27,14 @@ class Profile(models.Model):
 class CompanyCodeModel(models.Model):
     CompanyId = models.CharField(max_length=50)
     user_name = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    user_pass = models.CharField(max_length=400, default='companyOffice')
+
     def __str__(self):
-        return self.user_name.username
+        return str(
+            (
+                self.user_name.username, self.CompanyId
+            )
+        )
 
 class Mail(models.Model):
     names = models.ForeignKey(User, on_delete=models.CASCADE)
