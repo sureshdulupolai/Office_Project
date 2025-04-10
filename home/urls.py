@@ -25,4 +25,7 @@ urlpatterns = [
     path('mail-send/direct-profile/<str:obj>/', views.profileEmailPageFunction, name='profileEmail'),
     path('message-mail/<str:obj>/<str:choice>/', views.DirectMessageFromMail, name='DirectMessage'),
     path('delete-message/<int:msg_id>/<int:Page>/', views.DeleteMessagePageFunction, name='DeleteMessage'),
+
+    # Group Communication
+    path('create-new-group/', views.createGroupPageFunction, name='CreateGroup'),
 ]

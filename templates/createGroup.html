@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    .textarea-cg{
+        resize: none;
+        height: 250px;
+    }
+</style>
+<div class="container-fluid bg-dark d-flex justify-content-center align-items-center" style="height: 100vh; overflow: auto;">
+    <div class="card p-4 rounded-3 bg-light log-mt mb-3" style="width: 500px; margin-top: 60px;">
+        <h3 class="text-center mb-4">Create New Chat Group</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="CGM_Image" class="form-label">Group Image</label>
+                <input type="file" name="CGM_Image" id="CGM_Image" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="CGM_Name" class="form-label">Group Name</label>
+                <input type="text" name="CGM_Name" id="CGM_Name" class="form-control" placeholder="Enter Group Name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="CGM_Description" class="form-label">Description</label>
+                <textarea name="CGM_Description" id="CGM_Description" class="form-control textarea-cg" rows="4" placeholder="Group Description..."></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="CGM_Slogon" class="form-label">Slogan</label>
+                <input type="text" name="CGM_Slogon" id="CGM_Slogon" class="form-control" placeholder="Welcome message..." required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Create Group</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary w-100 mt-3">Back to Home</a>
+    </div>
+</div>
+
+{% endblock %}

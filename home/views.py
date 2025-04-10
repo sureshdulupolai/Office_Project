@@ -503,3 +503,7 @@ def saveMailPageFunction(request):
         'Check' : '3',
     }
     return render(request, 'saveMail.html', context)
+
+# create group 
+def createGroupPageFunction(request):
+    return render(request, 'createGroup.html')

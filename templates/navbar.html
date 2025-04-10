@@ -39,7 +39,7 @@
             
             {% if Category == 'Owner' or Category == 'Manager' %}
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Create Group</a>
+              <a class="nav-link" href="{% url 'CreateGroup' %}"><i class="bi bi-people me-2"></i> Create Group</a>
             </li>
           {% endif %}
 
