@@ -567,3 +567,6 @@ def createGroupPageFunction(request):
         return redirect('home')
 
     return render(request, 'createGroup.html')
+
+def ChatPageFunction(request):
+    return render(request, 'chatPage.html')

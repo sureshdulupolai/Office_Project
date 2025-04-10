@@ -28,4 +28,5 @@ urlpatterns = [
 
     # Group Communication
     path('create-new-group/', views.createGroupPageFunction, name='CreateGroup'),
+    path('chats/', views.ChatPageFunction ,name='Chats'),
 ]

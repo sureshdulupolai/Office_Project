@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .chat-list {
+        height: 100vh;
+        overflow-y: auto;
+        border-right: 1px solid #444;
+    }
+    .chat-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid #333;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .chat-item:hover {
+        background-color: #2e2e2e;
+    }
+    .chat-details {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-grow: 1;
+    }
+    .chat-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .chat-text {
+        overflow: hidden;
+    }
+    .chat-name {
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .chat-preview {
+        font-size: 0.9rem;
+        color: #aaa;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .chat-date {
+        font-size: 0.8rem;
+        color: #aaa;
+        white-space: nowrap;
+        margin-left: 10px;
+    }
+    .main-area {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #aaa;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4 chat-list bg-dark">
+            <div class="p-3">
+                <input type="text" class="form-control bg-secondary text-white" placeholder="Search">
+            </div>
+
+            <!-- Chat Items -->
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">Suresh</div>
+                        <div class="chat-preview">nice website</div>
+                    </div>
+                </div>
+                <div class="chat-date">Yesterday</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">PARATIMA (You)</div>
+                        <div class="chat-preview">Desktop Girl: https://store.steampowered...</div>
+                    </div>
+                </div>
+                <div class="chat-date">Monday</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">BuildwithIndia Information 2</div>
+                        <div class="chat-preview">~ Hardik: A Mystery Awaits. A Design Mu...</div>
+                    </div>
+                </div>
+                <div class="chat-date">9:07 pm</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">Free Jobs 📣 Mumbai ✨ Community</div>
+                        <div class="chat-preview">~ hr kartiki: Opening for CRM at Vikas ...</div>
+                    </div>
+                </div>
+                <div class="chat-date">6:32 pm</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">Itvedant batch</div>
+                        <div class="chat-preview">You: Tujhe toh aate hi kitchen mai jana...</div>
+                    </div>
+                </div>
+                <div class="chat-date">4:31 pm</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">5 idiots</div>
+                        <div class="chat-preview">Gurshish It.Vedant: https://www.instagr...</div>
+                    </div>
+                </div>
+                <div class="chat-date">3:02 pm</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">Shree Bhai</div>
+                        <div class="chat-preview"></div>
+                    </div>
+                </div>
+                <div class="chat-date">2:11 pm</div>
+            </div>
+
+            <div class="chat-item">
+                <div class="chat-details">
+                    <img src="../media/office.jpg" alt="User" class="chat-image">
+                    <div class="chat-text">
+                        <div class="chat-name">Portfolio (Beep / Tines)</div>
+                        <div class="chat-preview"></div>
+                    </div>
+                </div>
+                <div class="chat-date">1:38 pm</div>
+            </div>
+        </div>
+
+        <div class="col-8 main-area">
+            <div class="text-center">
+                <img src="../media/office.jpg" alt="Office Portal" class="img-fluid mb-4" style="max-height: 200px;">
+                <h5>Office Portal</h5>
+                <p>Send and receive messages without keeping your phone online.<br>Use Office Portal on up to 4 linked devices and 1 phone at the same time.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
