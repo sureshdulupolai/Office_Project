@@ -83,6 +83,7 @@ class UserOfCGM(models.Model):
         ('Admin', 'Admin'),
         ('Member', 'Member'),
     ]
+
     UOC_connect = models.ForeignKey(CategoryGroupModel, on_delete=models.CASCADE)
     UOC_Id = models.CharField(max_length=100)
     UOC_username = models.CharField(max_length=300)

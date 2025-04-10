@@ -506,10 +506,27 @@ def saveMailPageFunction(request):
 
 # create group 
 def createGroupPageFunction(request):
+    Owner_Data = Profile.objects.filter(user_category = 'Owner')
+    lst = []
+    print(lst)
+    for UserLoop in range(len(Owner_Data)):
+        dct = {}
+        dct['UOC_Id'] = Owner_Data[UserLoop].id
+
+        user_Model_Data = User.objects.get(id = Owner_Data[UserLoop].id)
+        dct['UOC_username'] = user_Model_Data.username
+
+        dct['UOC_Category'] = 'Admin'
+
+        lst += [dct]
+
+    print(lst)
+    
+
     if request.method == 'POST':
         CGM_Image = request.POST.get('CGM_Image')
         CGM_Name = request.POST.get('CGM_Name')
-        CGM_Category = request.POST.get('CGM_Category')
+        CGM_Category = request.POST.get('Category')
         CGM_Description = request.POST.get('CGM_Description')
         CGM_Slogon = request.POST.get('CGM_Slogon')
 
@@ -526,14 +543,21 @@ def createGroupPageFunction(request):
         user_data = User.objects.get(id = request.user.id)
         user_profile_data = Profile.objects.get(id = user_data.id)
         
-        UOC_Connect_Id = CategoryGroupModel.objects.get(id = CGM.id)
-        print(UOC_Connect_Id, 'Debug 1')
-        UOC_connect = UOC_Connect_Id.id
-        print(UOC_connect, 'Debug 2')
+        UOC_connect = CategoryGroupModel.objects.get(id = CGM.id)
+        UOC_Id = int(user_profile_data.id)
+        UOC_username = user_data.username
+        UOC_Category = 'Admin'
 
-        UOC_Id = user_profile_data.id
-        UOC_username = user_profile_data.username
-        UOC_Category = request.POST.get('Category')
+        lst = [
+            {
+                "UOC_connect" : UOC_connect,
+                "UOC_Id" : UOC_Id,
+                "UOC_username" : UOC_username,
+                "UOC_Category" : UOC_Category,
+            },
+        ]
+
+        
 
         UC = UserOfCGM(
             UOC_connect = UOC_connect,
@@ -544,4 +568,6 @@ def createGroupPageFunction(request):
 
         UC.save()
         
+        return redirect('home')
+
     return render(request, 'createGroup.html')
