@@ -5,7 +5,7 @@ from .models import Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .models import Profile, Mail, SaveDatasM, CompanyCodeModel
+from .models import Profile, Mail, SaveDatasM, CompanyCodeModel, CategoryGroupModel, UserOfCGM, CGChartModel
 # for date and month
 from datetime import datetime
 # ctrl + sift + p
@@ -512,12 +512,36 @@ def createGroupPageFunction(request):
         CGM_Category = request.POST.get('CGM_Category')
         CGM_Description = request.POST.get('CGM_Description')
         CGM_Slogon = request.POST.get('CGM_Slogon')
-        CGM_Time = request.POST.get('CGM_Time')
 
-        UOC_connect = 7
-        UOC_Id = 8
-        UOC_username = 9
-        UOC_Time = 10
-        UOC_Category = 11
+        CGM = CategoryGroupModel(
+            CGM_Image = CGM_Image,
+            CGM_Name = CGM_Name,
+            CGM_Category = CGM_Category,
+            CGM_Description = CGM_Description,
+            CGM_Slogon = CGM_Slogon,
+        )
 
+        CGM.save()
+
+        user_data = User.objects.get(id = request.user.id)
+        user_profile_data = Profile.objects.get(id = user_data.id)
+        
+        UOC_Connect_Id = CategoryGroupModel.objects.get(id = CGM.id)
+        print(UOC_Connect_Id, 'Debug 1')
+        UOC_connect = UOC_Connect_Id.id
+        print(UOC_connect, 'Debug 2')
+
+        UOC_Id = user_profile_data.id
+        UOC_username = user_profile_data.username
+        UOC_Category = request.POST.get('Category')
+
+        UC = UserOfCGM(
+            UOC_connect = UOC_connect,
+            UOC_Id = UOC_Id,
+            UOC_username = UOC_username,
+            UOC_Category = UOC_Category,
+        )
+
+        UC.save()
+        
     return render(request, 'createGroup.html')
