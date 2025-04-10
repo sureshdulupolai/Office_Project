@@ -506,23 +506,6 @@ def saveMailPageFunction(request):
 
 # create group 
 def createGroupPageFunction(request):
-    Owner_Data = Profile.objects.filter(user_category = 'Owner')
-    lst = []
-    print(lst)
-    for UserLoop in range(len(Owner_Data)):
-        dct = {}
-        dct['UOC_Id'] = Owner_Data[UserLoop].id
-
-        user_Model_Data = User.objects.get(id = Owner_Data[UserLoop].id)
-        dct['UOC_username'] = user_Model_Data.username
-
-        dct['UOC_Category'] = 'Admin'
-
-        lst += [dct]
-
-    print(lst)
-    
-
     if request.method == 'POST':
         CGM_Image = request.POST.get('CGM_Image')
         CGM_Name = request.POST.get('CGM_Name')
@@ -548,7 +531,7 @@ def createGroupPageFunction(request):
         UOC_username = user_data.username
         UOC_Category = 'Admin'
 
-        lst = [
+        GroupChatUserList = [
             {
                 "UOC_connect" : UOC_connect,
                 "UOC_Id" : UOC_Id,
@@ -557,16 +540,29 @@ def createGroupPageFunction(request):
             },
         ]
 
-        
+        Owner_Data = Profile.objects.filter(user_category = 'Owner')
+        for UserLoop in range(len(Owner_Data)):
+            dct = {}
 
-        UC = UserOfCGM(
-            UOC_connect = UOC_connect,
-            UOC_Id = UOC_Id,
-            UOC_username = UOC_username,
-            UOC_Category = UOC_Category,
-        )
+            dct['UOC_connect'] = UOC_connect
+            dct['UOC_Id'] = Owner_Data[UserLoop].id
 
-        UC.save()
+            user_Model_Data = User.objects.get(id = Owner_Data[UserLoop].id)
+            dct['UOC_username'] = user_Model_Data.username
+
+            dct['UOC_Category'] = 'Admin'
+
+            GroupChatUserList += [dct]
+
+        for DataInList in GroupChatUserList:
+            UC = UserOfCGM(
+                UOC_connect = DataInList['UOC_connect'],
+                UOC_Id = DataInList['UOC_Id'],
+                UOC_username = DataInList['UOC_username'],
+                UOC_Category = DataInList['UOC_Category'],
+            )
+
+            UC.save()
         
         return redirect('home')
 
