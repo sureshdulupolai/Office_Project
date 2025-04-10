@@ -506,4 +506,18 @@ def saveMailPageFunction(request):
 
 # create group 
 def createGroupPageFunction(request):
+    if request.method == 'POST':
+        CGM_Image = request.POST.get('CGM_Image')
+        CGM_Name = request.POST.get('CGM_Name')
+        CGM_Category = request.POST.get('CGM_Category')
+        CGM_Description = request.POST.get('CGM_Description')
+        CGM_Slogon = request.POST.get('CGM_Slogon')
+        CGM_Time = request.POST.get('CGM_Time')
+
+        UOC_connect = 7
+        UOC_Id = 8
+        UOC_username = 9
+        UOC_Time = 10
+        UOC_Category = 11
+
     return render(request, 'createGroup.html')
