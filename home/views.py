@@ -507,9 +507,8 @@ def saveMailPageFunction(request):
 # create group 
 def createGroupPageFunction(request):
     if request.method == 'POST':
-        if request.POST.get('CGM_Image'):
-            CGM_Image = request.POST.get('CGM_Image')
-        else:
+        CGM_Image = request.FILES.get('CGM_Image')
+        if not CGM_Image:
             CGM_Image = 'default_user/def_user.jpg'
             
         CGM_Name = request.POST.get('CGM_Name')
@@ -579,7 +578,6 @@ def ChatPageFunction(request):
     for a1 in UC1:
         KeyName = a1.UOC_connect
         data = CategoryGroupModel.objects.get(CGM_Name = KeyName)
-        # print(data.CGM_Image)
         lstOfGroup += [data]
     lstLen = int(len(lstOfGroup))
     print(lstLen)
