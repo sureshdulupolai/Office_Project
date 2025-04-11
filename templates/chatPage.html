@@ -66,101 +66,32 @@
 
 <div class="container-fluid">
     <div class="row">
+        <!-- Left Chat List -->
         <div class="col-4 chat-list bg-dark">
             <div class="p-3">
                 <input type="text" class="form-control bg-secondary text-white" placeholder="Search">
             </div>
-
-            <!-- Chat Items -->
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">Suresh</div>
-                        <div class="chat-preview">nice website</div>
-                    </div>
-                </div>
-                <div class="chat-date">Yesterday</div>
+            {% if lstLen == 0 %}
+            <div class="text-center text-muted p-3">
+                <p class="text-white">There is no group created.</p>
             </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">PARATIMA (You)</div>
-                        <div class="chat-preview">Desktop Girl: https://store.steampowered...</div>
+            {% else %}
+                {% for LG in lstOfGroup %}
+                    <div class="chat-item">
+                        <div class="chat-details">
+                            <img src="/media/{{ LG.CGM_Image }}" alt="User" class="chat-image">
+                            <div class="chat-text">
+                                <div class="chat-name">{{ LG.CGM_Name }}</div>
+                                <div class="chat-preview">nice website</div>
+                            </div>
+                        </div>
+                        <div class="chat-date">{{ LG.CGM_Time }}</div>
                     </div>
-                </div>
-                <div class="chat-date">Monday</div>
-            </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">BuildwithIndia Information 2</div>
-                        <div class="chat-preview">~ Hardik: A Mystery Awaits. A Design Mu...</div>
-                    </div>
-                </div>
-                <div class="chat-date">9:07 pm</div>
-            </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">Free Jobs 📣 Mumbai ✨ Community</div>
-                        <div class="chat-preview">~ hr kartiki: Opening for CRM at Vikas ...</div>
-                    </div>
-                </div>
-                <div class="chat-date">6:32 pm</div>
-            </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">Itvedant batch</div>
-                        <div class="chat-preview">You: Tujhe toh aate hi kitchen mai jana...</div>
-                    </div>
-                </div>
-                <div class="chat-date">4:31 pm</div>
-            </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">5 idiots</div>
-                        <div class="chat-preview">Gurshish It.Vedant: https://www.instagr...</div>
-                    </div>
-                </div>
-                <div class="chat-date">3:02 pm</div>
-            </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">Shree Bhai</div>
-                        <div class="chat-preview"></div>
-                    </div>
-                </div>
-                <div class="chat-date">2:11 pm</div>
-            </div>
-
-            <div class="chat-item">
-                <div class="chat-details">
-                    <img src="../media/office.jpg" alt="User" class="chat-image">
-                    <div class="chat-text">
-                        <div class="chat-name">Portfolio (Beep / Tines)</div>
-                        <div class="chat-preview"></div>
-                    </div>
-                </div>
-                <div class="chat-date">1:38 pm</div>
-            </div>
+                {% endfor %}
+            {% endif %}
         </div>
-
+        
+        <!-- Right Main Area -->
         <div class="col-8 main-area">
             <div class="text-center">
                 <img src="../media/office.jpg" alt="Office Portal" class="img-fluid mb-4" style="max-height: 200px;">
