@@ -82,10 +82,10 @@
                             <img src="/media/{{ LG.CGM_Image }}" alt="User" class="chat-image">
                             <div class="chat-text">
                                 <div class="chat-name">{{ LG.CGM_Name }}</div>
-                                <div class="chat-preview">nice website</div>
+                                <div class="chat-preview">{{ names }} : {{ text|truncatechars:30 }}</div>
                             </div>
                         </div>
-                        <div class="chat-date">{{ LG.CGM_Time }}</div>
+                        <div class="chat-date">{{ time }}</div>
                     </div>
                 {% endfor %}
             {% endif %}

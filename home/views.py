@@ -526,9 +526,20 @@ def createGroupPageFunction(request):
 
         CGM.save()
 
+        CGM_Instance = CategoryGroupModel.objects.get(CGM_Name = CGM_Name)
+
+        # model entry for chats 
+        CGCM = CGChartModel(
+            CGC_ChatLink = CGM_Instance,
+            CGC_UserName = request.user.username
+        )
+
+        CGCM.save()
+
+        # admin added by default
         user_data = User.objects.get(id = request.user.id)
         user_profile_data = Profile.objects.get(id = user_data.id)
-        
+
         UOC_connect = CategoryGroupModel.objects.get(id = CGM.id)
         UOC_Id = int(user_profile_data.id)
         UOC_username = user_data.username
@@ -576,6 +587,10 @@ def ChatPageFunction(request):
     for a1 in UC1:
         KeyName = a1.UOC_connect
         data = CategoryGroupModel.objects.get(CGM_Name = KeyName)
+        data_name = CGChartModel.objects.get(CGC_ChatLink = KeyName)
+        text = data_name.CGC_Text
+        names = data_name.CGC_UserName
+        time = data_name.CGC_Time
         lstOfGroup += [data]
         
     lstLen = int(len(lstOfGroup))
@@ -583,6 +598,9 @@ def ChatPageFunction(request):
     context = {
         'lstOfGroup' : lstOfGroup,
         'lstLen' : lstLen,
+        'names' : names,
+        'text' : text,
+        'time' : time,
     }
 
     return render(request, 'chatPage.html', context)

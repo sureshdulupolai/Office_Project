@@ -103,8 +103,4 @@ class CGChartModel(models.Model):
     CGC_Time = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return str(
-            (
-                self.CGC_UserName, self.CGC_Time
-            )
-        )
+        return self.CGC_UserName
