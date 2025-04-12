@@ -79,26 +79,39 @@
         <span class="fw-bold">{{ groupName }}</span>
       </div>
       <div>
-        <button class="btn btn-outline-light btn-sm me-2">Back</button>
-        <button class="btn btn-outline-danger btn-sm">Delete</button>
+        <a href="{% url 'Chats' %}" class="btn btn-outline-light btn-sm me-2">Back</a>
+        {% if UserCategory == 'Owner' %}
+          <button class="btn btn-outline-danger btn-sm">Delete</button>
+        {% endif %}
       </div>
     </div>
 
     <!-- Chat Messages Area -->
-    <div class="chat-body text-black">
+    <div class="chat-body text-black" id="chat-body">
       <div class="text-center text-muted small">TUESDAY</div>
-      {% for OC in objOfChat %}
-        <div class="msg">
-          <strong>{{ OC.CGC_UserName }}</strong>
-          <p class="mt-2">{{ OC.CGC_Text }}<br>
-        </div>
+      {% for OC1, OC2 in ObjectOFNewChat %}
+        {% if OC2 == 0 %}
+          <div class="msg">
+            <strong>{{ OC1.CGC_UserName }}</strong>
+            <p class="mt-2 mb-0">
+              {{ OC1.CGC_Text }}
+            </p>
+            <div class="text-end text-muted small">
+              {{ OC1.CGC_Time }}
+            </div>
+          </div>
+        {% elif OC2 == 1 %}
+          <div class="msg other">
+            <strong>{{ OC1.CGC_UserName }}</strong>
+            <p class="mb-0">
+              {{ OC1.CGC_Text }}
+            </p>
+            <div class="text-end text-black-50 small">
+              {{ OC1.CGC_Time }}
+            </div>
+          </div>
+        {% endif %}
       {% endfor %}
-
-      <div class="text-center text-muted small">WEDNESDAY</div>
-      <div class="msg other">
-        <strong>leo9studio.com</strong>
-        <p><a href="https://leo9studio.com" target="_blank">https://leo9studio.com</a></p>
-      </div>
     </div>
 
     <!-- Chat Form -->
@@ -108,5 +121,10 @@
     </div>
 
   </div>
-  
+  <script>
+    window.onload = function() {
+      var chatBody = document.getElementById("chat-body");
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  </script>
 {% endblock %}

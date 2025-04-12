@@ -587,7 +587,8 @@ def ChatPageFunction(request):
     for a1 in UC1:
         KeyName = a1.UOC_connect
         data = CategoryGroupModel.objects.get(CGM_Name = KeyName)
-        data_name = CGChartModel.objects.get(CGC_ChatLink = KeyName)
+        data_name = CGChartModel.objects.filter(CGC_ChatLink = KeyName).last()
+
         text = data_name.CGC_Text
         names = data_name.CGC_UserName
         time = data_name.CGC_Time
@@ -608,16 +609,30 @@ def ChatPageFunction(request):
 def openChatsPageFunction(request, groupname):
     objOfGroup = CategoryGroupModel.objects.get(id = groupname)
     objOfChat = CGChartModel.objects.filter(CGC_ChatLink = groupname)
-    
+    objOfProfile = Profile.objects.get(name = request.user.id)
+
     # ChatGroup
     groupName = objOfGroup.CGM_Name
     GroupImage = objOfGroup.CGM_Image
     
     # chats details
+    lstOfUserData = []
+    for OOC in objOfChat:
+        if OOC.CGC_UserName == request.user.username:
+            lstOfUserData += [1]
+        else:
+            lstOfUserData += [0]
+
+    ObjectOFNewChat = zip(objOfChat, lstOfUserData)
+
+    # profile of user category
+    UserCategory = objOfProfile.user_category
 
     context = {
-        'objOfChat' : objOfChat,
+        'ObjectOFNewChat' : ObjectOFNewChat,
         'groupName' : groupName,
         'GroupImage' : GroupImage,
+        'UserCategory' : UserCategory,
     }
+
     return render(request, 'openChat.html', context)
