@@ -604,3 +604,8 @@ def ChatPageFunction(request):
     }
 
     return render(request, 'chatPage.html', context)
+
+def openChatsPageFunction(request, groupname):
+    obj = CGChartModel.objects.filter(CGC_ChatLink = groupname)
+    print(obj)
+    return render(request, 'openChat.html')

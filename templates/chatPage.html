@@ -17,6 +17,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        text-decoration: none;
     }
     .chat-item:hover {
         background-color: #2e2e2e;
@@ -77,16 +78,16 @@
             </div>
             {% else %}
                 {% for LG in lstOfGroup %}
-                    <div class="chat-item">
+                    <a href="{% url 'OpenChats' LG.id %}" class="chat-item">
                         <div class="chat-details">
                             <img src="/media/{{ LG.CGM_Image }}" alt="User" class="chat-image">
                             <div class="chat-text">
-                                <div class="chat-name">{{ LG.CGM_Name }}</div>
-                                <div class="chat-preview">{{ names }} : {{ text|truncatechars:30 }}</div>
+                                <div class="chat-name text-white">{{ LG.CGM_Name }}</div>
+                                <div class="chat-preview text-white">{{ names }} : {{ text|truncatechars:30 }}</div>
                             </div>
                         </div>
                         <div class="chat-date">{{ time }}</div>
-                    </div>
+                    </a>
                 {% endfor %}
             {% endif %}
         </div>
