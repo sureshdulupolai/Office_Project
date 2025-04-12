@@ -113,42 +113,43 @@
         {% endif %}
       {% endfor %}
     </div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="chat-footer bg-dark d-flex align-items-center">
+        <input type="text" id="textInput" name="CGC_Data_Form" class="form-control me-2" placeholder="Type a message...">
+        <input type="text" id="fileNameInput" class="form-control me-2 d-none text-black" disabled>
+        <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#attachModal">
+          <i class="bi bi-paperclip"></i>
+        </button>
+        <button class="btn btn-success">Send</button>
+      </div>
 
-    <!-- Chat Form -->
-    <!-- Chat Footer -->
-  <div class="chat-footer bg-dark d-flex align-items-center">
-    <input type="text" id="messageInput" name="CGC_Data_Form" class="form-control me-2" placeholder="Type a message...">
-    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#attachModal">
-      <i class="bi bi-paperclip"></i>
-    </button>
-    <button class="btn btn-success">Send</button>
-  </div>
-
-  <!-- Modal for Attachment -->
-  <div class="modal fade" id="attachModal" tabindex="-1" aria-labelledby="attachModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark text-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="attachModalLabel">Choose Attachment</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body d-flex flex-column gap-3">
-          <label>
-            <input type="file" name="image" accept="image/*" hidden>
-            <span class="btn btn-outline-info w-100">📷 Image</span>
-          </label>
-          <label>
-            <input type="file" name="video" accept="video/*" hidden>
-            <span class="btn btn-outline-warning w-100">🎥 Video</span>
-          </label>
-          <label>
-            <input type="file" name="document" accept=".pdf,.doc,.docx,.txt" hidden>
-            <span class="btn btn-outline-success w-100">📄 Document</span>
-          </label>
+    <!-- Modal for Attachment -->
+      <div class="modal fade" id="attachModal" tabindex="-1" aria-labelledby="attachModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+              <h5 class="modal-title" id="attachModalLabel">Choose Attachment</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column gap-3">
+              <label>
+                <input type="file" name="image" accept="image/*" hidden>
+                <span class="btn btn-outline-info w-100">📷 Image</span>
+              </label>
+              <label>
+                <input type="file" name="video" accept="video/*" hidden>
+                <span class="btn btn-outline-warning w-100">🎥 Video</span>
+              </label>
+              <label>
+                <input type="file" name="document" accept=".pdf,.doc,.docx,.txt" hidden>
+                <span class="btn btn-outline-success w-100">📄 Document</span>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </form>
 
   </div>
   <script>
@@ -158,20 +159,34 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
+    const textInput = document.getElementById("textInput");
+    const fileNameInput = document.getElementById("fileNameInput");
     const fileInputs = document.querySelectorAll('.modal-body input[type="file"]');
-    const messageInput = document.getElementById("messageInput");
 
     fileInputs.forEach(input => {
       input.addEventListener('change', function () {
         const fileName = this.files[0]?.name;
         if (fileName) {
-          messageInput.value = fileName;
+          // Toggle fields
+          textInput.classList.add("d-none");
+          textInput.disabled = true;
 
-          // Close the modal
+          fileNameInput.classList.remove("d-none");
+          fileNameInput.value = fileName;
+
+          // Close modal
           const modal = bootstrap.Modal.getInstance(document.getElementById('attachModal'));
           modal.hide();
         }
       });
+    });
+
+    // If user clears text manually (optional reset system):
+    fileNameInput.addEventListener("dblclick", function () {
+      fileNameInput.classList.add("d-none");
+      textInput.classList.remove("d-none");
+      textInput.disabled = false;
+      fileNameInput.value = "";
     });
   });
 
