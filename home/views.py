@@ -606,6 +606,18 @@ def ChatPageFunction(request):
     return render(request, 'chatPage.html', context)
 
 def openChatsPageFunction(request, groupname):
-    obj = CGChartModel.objects.filter(CGC_ChatLink = groupname)
-    print(obj)
-    return render(request, 'openChat.html')
+    objOfGroup = CategoryGroupModel.objects.get(id = groupname)
+    objOfChat = CGChartModel.objects.filter(CGC_ChatLink = groupname)
+    
+    # ChatGroup
+    groupName = objOfGroup.CGM_Name
+    GroupImage = objOfGroup.CGM_Image
+    
+    # chats details
+
+    context = {
+        'objOfChat' : objOfChat,
+        'groupName' : groupName,
+        'GroupImage' : GroupImage,
+    }
+    return render(request, 'openChat.html', context)

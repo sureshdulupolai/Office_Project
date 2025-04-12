@@ -18,7 +18,7 @@
       border-radius: 10px;
       overflow: hidden;
       position: relative;
-      top: 11%;
+      top: 10%;
     }
 
     .chat-navbar {
@@ -75,8 +75,8 @@
     <!-- Navbar -->
     <div class="chat-navbar text-white bg-dark" style="border-bottom: 2px solid black;">
       <div class="d-flex align-items-center">
-        <img src="../media/profile/my_photo.jpeg" class="rounded-circle me-2" width="40" height="40" alt="Profile">
-        <span class="fw-bold">Suresh</span>
+        <img src="/media/{{ GroupImage }}" class="rounded-circle me-2" width="40" height="40" alt="Profile">
+        <span class="fw-bold">{{ groupName }}</span>
       </div>
       <div>
         <button class="btn btn-outline-light btn-sm me-2">Back</button>
@@ -87,10 +87,12 @@
     <!-- Chat Messages Area -->
     <div class="chat-body text-black">
       <div class="text-center text-muted small">TUESDAY</div>
-      <div class="msg">
-        <strong>resume.docx</strong>
-        <p class="mt-2">Name: Santosh kumar varma<br>
-      </div>
+      {% for OC in objOfChat %}
+        <div class="msg">
+          <strong>{{ OC.CGC_UserName }}</strong>
+          <p class="mt-2">{{ OC.CGC_Text }}<br>
+        </div>
+      {% endfor %}
 
       <div class="text-center text-muted small">WEDNESDAY</div>
       <div class="msg other">
