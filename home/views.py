@@ -510,7 +510,7 @@ def createGroupPageFunction(request):
         CGM_Image = request.FILES.get('CGM_Image')
         if not CGM_Image:
             CGM_Image = 'default_user/def_user.jpg'
-            
+
         CGM_Name = request.POST.get('CGM_Name')
         CGM_Category = request.POST.get('Category')
         CGM_Description = request.POST.get('CGM_Description')
@@ -546,16 +546,14 @@ def createGroupPageFunction(request):
         Owner_Data = Profile.objects.filter(user_category = 'Owner')
         for UserLoop in range(len(Owner_Data)):
             dct = {}
-
-            dct['UOC_connect'] = UOC_connect
-            dct['UOC_Id'] = Owner_Data[UserLoop].id
-
             user_Model_Data = User.objects.get(id = Owner_Data[UserLoop].id)
-            dct['UOC_username'] = user_Model_Data.username
+            if str(user_Model_Data.username) != str(request.user.username):
+                dct['UOC_connect'] = UOC_connect
+                dct['UOC_Id'] = Owner_Data[UserLoop].id
+                dct['UOC_username'] = user_Model_Data.username
+                dct['UOC_Category'] = 'Admin'
 
-            dct['UOC_Category'] = 'Admin'
-
-            GroupChatUserList += [dct]
+                GroupChatUserList += [dct]
 
         for DataInList in GroupChatUserList:
             UC = UserOfCGM(
@@ -579,8 +577,9 @@ def ChatPageFunction(request):
         KeyName = a1.UOC_connect
         data = CategoryGroupModel.objects.get(CGM_Name = KeyName)
         lstOfGroup += [data]
+        
     lstLen = int(len(lstOfGroup))
-    print(lstLen)
+    # print(lstLen)
     context = {
         'lstOfGroup' : lstOfGroup,
         'lstLen' : lstLen,
