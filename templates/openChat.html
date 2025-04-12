@@ -76,7 +76,7 @@
     <div class="chat-navbar text-white bg-dark" style="border-bottom: 2px solid black;">
       <div class="d-flex align-items-center">
         <img src="/media/{{ GroupImage }}" class="rounded-circle me-2" width="40" height="40" alt="Profile">
-        <span class="fw-bold">{{ groupName }}</span>
+        <span class="fw-bold">{{ groupName|truncatechars:80 }}</span>
       </div>
       <div>
         <a href="{% url 'Chats' %}" class="btn btn-outline-light btn-sm me-2">Back</a>
@@ -115,10 +115,40 @@
     </div>
 
     <!-- Chat Form -->
-    <div class="chat-footer bg-dark">
-      <input type="text" class="form-control me-2" placeholder="Type a message...">
-      <button class="btn btn-success">Send</button>
+    <!-- Chat Footer -->
+  <div class="chat-footer bg-dark d-flex align-items-center">
+    <input type="text" id="messageInput" name="CGC_Data_Form" class="form-control me-2" placeholder="Type a message...">
+    <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#attachModal">
+      <i class="bi bi-paperclip"></i>
+    </button>
+    <button class="btn btn-success">Send</button>
+  </div>
+
+  <!-- Modal for Attachment -->
+  <div class="modal fade" id="attachModal" tabindex="-1" aria-labelledby="attachModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="attachModalLabel">Choose Attachment</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3">
+          <label>
+            <input type="file" name="image" accept="image/*" hidden>
+            <span class="btn btn-outline-info w-100">📷 Image</span>
+          </label>
+          <label>
+            <input type="file" name="video" accept="video/*" hidden>
+            <span class="btn btn-outline-warning w-100">🎥 Video</span>
+          </label>
+          <label>
+            <input type="file" name="document" accept=".pdf,.doc,.docx,.txt" hidden>
+            <span class="btn btn-outline-success w-100">📄 Document</span>
+          </label>
+        </div>
+      </div>
     </div>
+  </div>
 
   </div>
   <script>
@@ -126,5 +156,39 @@
       var chatBody = document.getElementById("chat-body");
       chatBody.scrollTop = chatBody.scrollHeight;
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const fileInputs = document.querySelectorAll('.modal-body input[type="file"]');
+    const messageInput = document.getElementById("messageInput");
+
+    fileInputs.forEach(input => {
+      input.addEventListener('change', function () {
+        const fileName = this.files[0]?.name;
+        if (fileName) {
+          messageInput.value = fileName;
+
+          // Close the modal
+          const modal = bootstrap.Modal.getInstance(document.getElementById('attachModal'));
+          modal.hide();
+        }
+      });
+    });
+  });
+
+    
+
+  //   document.addEventListener("DOMContentLoaded", function () {
+  //   const fileInputs = document.querySelectorAll('.modal-body input[type="file"]');
+
+  //   fileInputs.forEach(input => {
+  //     input.addEventListener('change', function () {
+  //       const fileName = this.files[0]?.name || "No file chosen";
+  //       const label = this.nextElementSibling;
+  //       label.textContent = `✅ ${fileName}`;
+  //       label.classList.remove('btn-outline-info', 'btn-outline-warning', 'btn-outline-success');
+  //       label.classList.add('btn-success');
+  //     });
+  //   });
+  // });
   </script>
 {% endblock %}

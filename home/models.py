@@ -100,7 +100,8 @@ class CGChartModel(models.Model):
     CGC_Image = models.ImageField(upload_to='Images/', blank=True, null=True)
     CGC_File = models.FileField(upload_to='File/', blank=True, null=True)
     CGC_Video = models.FileField(upload_to='Video/', blank=True, null=True)
-    CGC_Time = models.DateField(default=timezone.now)
+    CGC_Date = models.DateField(default=timezone.now)
+    CGC_Time = models.TimeField(default=timezone.now)
 
     def __str__(self):
         return self.CGC_UserName
