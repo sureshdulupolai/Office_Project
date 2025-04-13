@@ -588,25 +588,30 @@ def createGroupPageFunction(request):
 def ChatPageFunction(request):
     UC_Data = UserOfCGM.objects.filter(UOC_Id = request.user.id)
     UC1 = list(UC_Data)
-    lstOfGroup = []
+    lstOfGroup = []; lstOfOtherData = []
     for a1 in UC1:
         KeyName = a1.UOC_connect
         data = CategoryGroupModel.objects.get(CGM_Name = KeyName)
-        data_name = CGChartModel.objects.filter(CGC_ChatLink = KeyName).last()
+        data_name = CGChartModel.objects.filter(CGC_ChatLink = KeyName)
+        dataFromList = data_name.last()
+  
+        text = dataFromList.CGC_Text
+        names = dataFromList.CGC_UserName
+        time = dataFromList.CGC_Time
 
-        text = data_name.CGC_Text
-        names = data_name.CGC_UserName
-        time = data_name.CGC_Time
+        lstOfOtherData += [{'text' : text, 'names' : names, 'time' : time}]
         lstOfGroup += [data]
-        
+    
+    lstOfAllData = zip(lstOfGroup, lstOfOtherData)
     lstLen = int(len(lstOfGroup))
     # print(lstLen)
+
     context = {
-        'lstOfGroup' : lstOfGroup,
+        'lstOfAllData' : lstOfAllData,
         'lstLen' : lstLen,
-        'names' : names,
-        'text' : text,
-        'time' : time,
+        # 'names' : names,
+        # 'text' : text,
+        # 'time' : time,
     }
 
     return render(request, 'chatPage.html', context)

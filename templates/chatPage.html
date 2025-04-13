@@ -77,16 +77,16 @@
                 <p class="text-white">There is no group created.</p>
             </div>
             {% else %}
-                {% for LG in lstOfGroup %}
-                    <a href="{% url 'OpenChats' LG.id %}" class="chat-item">
+                {% for LG1, LG2 in lstOfAllData %}
+                    <a href="{% url 'OpenChats' LG1.id %}" class="chat-item">
                         <div class="chat-details">
-                            <img src="/media/{{ LG.CGM_Image }}" alt="User" class="chat-image">
+                            <img src="/media/{{ LG1.CGM_Image }}" alt="User" class="chat-image">
                             <div class="chat-text">
-                                <div class="chat-name text-white" style="font-size: 14px;">{{ LG.CGM_Name|truncatechars:35 }}</div>
-                                <div class="chat-preview text-white" style="font-size: 10px;">{{ names }} : {{ text|truncatechars:45 }}</div>
+                                <div class="chat-name text-white" style="font-size: 14px;">{{ LG1.CGM_Name|truncatechars:35 }}</div>
+                                <div class="chat-preview text-white" style="font-size: 10px;">{{ LG2.names }} : {{ LG2.text|truncatechars:60 }}</div>
                             </div>
                         </div>
-                        <div class="chat-date" style="font-size: 10px;">{{ time }}</div>
+                        <div class="chat-date" style="font-size: 10px;">{{ LG2.time }}</div>
                     </a>
                 {% endfor %}
             {% endif %}
