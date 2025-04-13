@@ -636,7 +636,7 @@ def openChatsPageFunction(request, groupname):
                 CGC_Date = now.date(),  # IST date
                 CGC_Time = now.time()   # IST time
             )
-            print(now.time(), 'Debug IST Time Showing')
+            # print(now.time(), 'Debug IST Time Showing')
             CGCC.save()
 
     # ChatGroup

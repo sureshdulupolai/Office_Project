@@ -159,51 +159,49 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-    const textInput = document.getElementById("textInput");
-    const fileNameInput = document.getElementById("fileNameInput");
-    const fileInputs = document.querySelectorAll('.modal-body input[type="file"]');
+        const textInput = document.getElementById("textInput");
+        const fileNameInput = document.getElementById("fileNameInput");
+        const fileInputs = document.querySelectorAll('.modal-body input[type="file"]');
 
-    fileInputs.forEach(input => {
-      input.addEventListener('change', function () {
-        const fileName = this.files[0]?.name;
-        if (fileName) {
-          // Toggle fields
-          textInput.classList.add("d-none");
-          textInput.disabled = true;
+        // Modal control logic
+        const attachButton = document.querySelector('[data-bs-toggle="modal"]'); // Pin button
+        const modalElement = document.getElementById('attachModal');
+        const modal = new bootstrap.Modal(modalElement, {
+            backdrop: 'static',  // Prevent closing by clicking outside
+            keyboard: false      // Prevent closing by pressing ESC key
+        });
 
-          fileNameInput.classList.remove("d-none");
-          fileNameInput.value = fileName;
+        // Open modal when pin button is clicked
+        attachButton.addEventListener("click", function () {
+            modal.show();  // Show the modal
+        });
 
-          // Close modal
-          const modal = bootstrap.Modal.getInstance(document.getElementById('attachModal'));
-          modal.hide();
-        }
-      });
+        // File input handling
+        fileInputs.forEach(input => {
+            input.addEventListener('change', function () {
+                const fileName = this.files[0]?.name;
+                if (fileName) {
+                    // Toggle fields
+                    textInput.classList.add("d-none");
+                    textInput.disabled = true;
+
+                    fileNameInput.classList.remove("d-none");
+                    fileNameInput.value = fileName;
+
+                    // Close modal after selecting file
+                    modal.hide();
+                }
+            });
+        });
+
+        // If user clears text manually (optional reset system):
+        fileNameInput.addEventListener("dblclick", function () {
+            fileNameInput.classList.add("d-none");
+            textInput.classList.remove("d-none");
+            textInput.disabled = false;
+            fileNameInput.value = "";
+        });
     });
+</script>
 
-    // If user clears text manually (optional reset system):
-    fileNameInput.addEventListener("dblclick", function () {
-      fileNameInput.classList.add("d-none");
-      textInput.classList.remove("d-none");
-      textInput.disabled = false;
-      fileNameInput.value = "";
-    });
-  });
-
-    
-
-  //   document.addEventListener("DOMContentLoaded", function () {
-  //   const fileInputs = document.querySelectorAll('.modal-body input[type="file"]');
-
-  //   fileInputs.forEach(input => {
-  //     input.addEventListener('change', function () {
-  //       const fileName = this.files[0]?.name || "No file chosen";
-  //       const label = this.nextElementSibling;
-  //       label.textContent = `✅ ${fileName}`;
-  //       label.classList.remove('btn-outline-info', 'btn-outline-warning', 'btn-outline-success');
-  //       label.classList.add('btn-success');
-  //     });
-  //   });
-  // });
-  </script>
 {% endblock %}
