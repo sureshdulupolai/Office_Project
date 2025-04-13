@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+import pytz
 
 # Create your models here.
 class Profile(models.Model):
@@ -93,6 +94,12 @@ class UserOfCGM(models.Model):
     def __str__(self):
         return self.UOC_username
     
+
+def get_current_ist_time():
+    india = pytz.timezone('Asia/Kolkata')
+    return timezone.now().astimezone(india).time()
+
+
 class CGChartModel(models.Model):
     CGC_ChatLink = models.ForeignKey(CategoryGroupModel, on_delete=models.CASCADE)
     CGC_UserName = models.CharField(max_length=300)
@@ -101,7 +108,7 @@ class CGChartModel(models.Model):
     CGC_File = models.FileField(upload_to='File/', blank=True, null=True)
     CGC_Video = models.FileField(upload_to='Video/', blank=True, null=True)
     CGC_Date = models.DateField(default=timezone.now)
-    CGC_Time = models.TimeField(default=timezone.now)
+    CGC_Time = models.TimeField(default=get_current_ist_time)
 
     def __str__(self):
         return self.CGC_UserName

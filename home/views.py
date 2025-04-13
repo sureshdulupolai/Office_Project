@@ -11,6 +11,9 @@ from datetime import datetime
 # ctrl + sift + p
 # reload windoe
 from dateutil.relativedelta import relativedelta
+from django.utils import timezone
+import pytz
+
 
 # Create your views here.
 def signUpPageFunction(request):
@@ -529,9 +532,11 @@ def createGroupPageFunction(request):
         CGM_Instance = CategoryGroupModel.objects.get(CGM_Name = CGM_Name)
 
         # model entry for chats 
+        usernames = request.user.username
         CGCM = CGChartModel(
             CGC_ChatLink = CGM_Instance,
-            CGC_UserName = request.user.username
+            CGC_UserName = usernames,
+            CGC_Text = '{} Created a Group {}'.format(usernames, CGM_Name)
         )
 
         CGCM.save()
@@ -610,6 +615,29 @@ def openChatsPageFunction(request, groupname):
     objOfGroup = CategoryGroupModel.objects.get(id = groupname)
     objOfChat = CGChartModel.objects.filter(CGC_ChatLink = groupname)
     objOfProfile = Profile.objects.get(name = request.user.id)
+
+    if request.method == 'POST':
+        TextData = request.POST.get('CGC_Data_Form')
+        ImageData = request.POST.get('image')
+        VideoData = request.POST.get('video')
+        DocumentData = request.POST.get('document')
+
+        if TextData or ImageData or VideoData or DocumentData:
+            india = pytz.timezone('Asia/Kolkata')
+            now = timezone.now().astimezone(india)  # IST me convert
+
+            CGCC = CGChartModel(
+                CGC_ChatLink = objOfGroup,
+                CGC_UserName = request.user.username,
+                CGC_Text = TextData,
+                CGC_Image = ImageData,
+                CGC_File = DocumentData,
+                CGC_Video = VideoData,
+                CGC_Date = now.date(),  # IST date
+                CGC_Time = now.time()   # IST time
+            )
+            print(now.time(), 'Debug IST Time Showing')
+            CGCC.save()
 
     # ChatGroup
     groupName = objOfGroup.CGM_Name
